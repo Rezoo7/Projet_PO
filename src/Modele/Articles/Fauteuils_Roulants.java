@@ -7,8 +7,8 @@ public class Fauteuils_Roulants extends Article {
     private double largeur_assise;
     private int poids_max;
 
-    public Fauteuils_Roulants(String ref, String marque, String modele, int prix_loc, int stock, double largeur,int poids_max) {
-        super(ref, marque, modele, prix_loc, stock);
+    public Fauteuils_Roulants(String ref, String marque, String modele, int prix_loc, double largeur,int poids_max) {
+        super(ref, marque, modele, prix_loc);
 
         this.largeur_assise = largeur;
         this.poids_max = poids_max;

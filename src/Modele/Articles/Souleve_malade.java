@@ -8,8 +8,8 @@ public class Souleve_malade extends Article {
     private int degre_pivotage;
 
 
-    public Souleve_malade(String ref, String marque, String modele, int prix_loc, int stock, int capacite_lev, int degre_pivo) {
-        super(ref, marque, modele, prix_loc, stock);
+    public Souleve_malade(String ref, String marque, String modele, int prix_loc, int capacite_lev, int degre_pivo) {
+        super(ref, marque, modele, prix_loc);
 
         this.cap_levage = capacite_lev;
         this.degre_pivotage = degre_pivo;

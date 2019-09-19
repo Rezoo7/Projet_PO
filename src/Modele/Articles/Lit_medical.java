@@ -2,7 +2,7 @@ package Modele.Articles;
 
 import Modele.Article;
 
-public class Lits_medical extends Article {
+public class Lit_medical extends Article {
 
     private double longueur;
     private double largeur;
@@ -15,8 +15,8 @@ public class Lits_medical extends Article {
     private String dimensions;
 
 
-    public Lits_medical(String ref, String marque, String modele, int prix_loc, int stock, double longueur, double largeur, double hauteur_min, double hauteur_max, int poids_max, String type) {
-        super(ref, marque, modele, prix_loc, stock);
+    public Lit_medical(String ref, String marque, String modele, int prix_loc, double longueur, double largeur, double hauteur_min, double hauteur_max, int poids_max, String type) {
+        super(ref, marque, modele, prix_loc);
 
         this.longueur = longueur;
         this.largeur = largeur;

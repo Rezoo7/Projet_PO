@@ -12,9 +12,9 @@ public class Tables_alite extends Article {
     private String dimension;
     private double poids_max;
 
-    public Tables_alite(String ref,String marque,String modele, int prix_loc, int stock , double longueur_plat, double profondeur_plat, String hauteur_var, double poids_max) {
+    public Tables_alite(String ref,String marque,String modele, int prix_loc , double longueur_plat, double profondeur_plat, String hauteur_var, double poids_max) {
 
-        super(ref,marque,modele,prix_loc,stock);
+        super(ref,marque,modele,prix_loc);
 
         this.longueur_plat = longueur_plat;
         this.profondeur_plat = profondeur_plat;

@@ -11,9 +11,9 @@ public class Matelas_air extends Article {
     private int hauteur;
     private String dimension;
 
-    public Matelas_air(String ref, String marque, String modele, int prix_loc, int stock, int poids_max, int temps_gonflage, int largeur, int longueur, int hauteur) {
+    public Matelas_air(String ref, String marque, String modele, int prix_loc, int poids_max, int temps_gonflage, int largeur, int longueur, int hauteur) {
 
-        super(ref, marque, modele, prix_loc, stock);
+        super(ref, marque, modele, prix_loc);
 
         this.poids_max = poids_max;
         this.temps_gonflage = temps_gonflage;
