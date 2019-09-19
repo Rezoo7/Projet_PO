@@ -31,4 +31,13 @@ public class Souleve_malade extends Article {
     public void setDegre_pivotage(int degre_pivotage) {
         this.degre_pivotage = degre_pivotage;
     }
+
+    @Override
+    public String toString() {
+        return "Souleve_malade {" +
+                super.toString() +
+                "Capacité de Levage = " + cap_levage + "kg" +
+                "\n Degré  de Pivotage=" + degre_pivotage + "°" +
+                '}';
+    }
 }

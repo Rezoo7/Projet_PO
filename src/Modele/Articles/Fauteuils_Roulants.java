@@ -30,4 +30,13 @@ public class Fauteuils_Roulants extends Article {
     public void setPoids_max(int poids_max) {
         this.poids_max = poids_max;
     }
+
+    @Override
+    public String toString() {
+        return "Fauteuils_Roulants{" +
+                super.toString() +
+                "Largeur d'Assise=" + largeur_assise + "cm" +
+                "\n Poids Max = " + poids_max + "kg" +
+                '}';
+    }
 }

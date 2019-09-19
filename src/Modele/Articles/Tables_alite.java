@@ -58,4 +58,17 @@ public class Tables_alite extends Article {
     public void setPoids_max(double poids_max) {
         this.poids_max = poids_max;
     }
+
+
+    @Override
+    public String toString() {
+        return "Tables_alite {" +
+                super.toString()+
+                "Longueur Plateau =" + longueur_plat + "cm"+
+                "\n Profondeur Plateau=" + profondeur_plat +
+                "\n Hauteur Variable = " + hauteur_var + "cm" +
+                "\n Dimension= " + dimension + "cm" +
+                "\n Poids Maximal =" + poids_max + "kg" +
+                '}';
+    }
 }

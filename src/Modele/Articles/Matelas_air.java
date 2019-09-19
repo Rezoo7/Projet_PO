@@ -69,8 +69,9 @@ public class Matelas_air extends Article {
 
     @Override
     public String toString() {
-        return "Matelas_air{" +
-                "poids_max=" + poids_max + "kg" +
+        return "Matelas_air {" +
+                super.toString() +
+                "Poids_max=" + poids_max + "kg" +
                 "\n Temps Gonflage=" + temps_gonflage + "s" +
                 "\n Dimension='" + dimension + '\'' +
                 '}';
