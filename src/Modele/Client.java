@@ -2,6 +2,10 @@ package Modele;
 
 public class Client {
 
+    private String nom;
+    private String prenom;
+    private String mail;
+
     public Client(String nom, String prenom, String mail) {
         this.nom = nom;
         this.prenom = prenom;
@@ -32,9 +36,7 @@ public class Client {
         this.mail = mail;
     }
 
-    private String nom;
-    private String prenom;
-    private String mail;
+
 
 
 }
