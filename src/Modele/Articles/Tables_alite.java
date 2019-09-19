@@ -1,6 +1,8 @@
-package Modele;
+package Modele.Articles;
 
-public class Tables_alite extends Article{
+import Modele.Article;
+
+public class Tables_alite extends Article {
 
     //Specifications table alite
 

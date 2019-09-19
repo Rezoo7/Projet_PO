@@ -20,10 +20,10 @@ public class Location {
     @Override
     public String toString() {
         return "Location{" +
-                "article=" + article +
-                "\n client=" + client +
-                "\n date_debut='" + date_debut + '\'' +
-                "\n date_fin='" + date_fin + '\'' +
+                "article=" + this.getArticle().toString() +
+                "\n client=" + this.getClient().getNom() + " " + this.getClient().getPrenom() +
+                "\n date_debut='" + date_debut +
+                "\n date_fin='" + date_fin +
                 "\n montant_tot=" + montant_tot + "€" +
                 '}';
     }
@@ -32,8 +32,12 @@ public class Location {
         return article;
     }
 
-    public void setArticle(List<Article> article) {
-        this.article = article;
+    public void addArticle(Article article) {
+        this.article.add(article);
+    }
+
+    public void delArticle(Article article){
+        this.article.remove(article);
     }
 
     public Client getClient() {
