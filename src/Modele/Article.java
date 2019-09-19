@@ -55,4 +55,13 @@ public abstract class Article {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+    @Override
+    public String toString() {
+        return "Réference :'" + ref +
+                "\n Marque='" + marque +
+                "\n Modele='" + modele +
+                "\n Prix Location =" + prix_loc + "€" +
+                "\n Stock=" + stock + "\n";
+    }
 }
