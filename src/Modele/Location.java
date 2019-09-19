@@ -3,14 +3,14 @@ import java.util.List;
 
 public class Location {
 
-    private List<Article> article;
+    private List<Article> articles;
     private Client client;
     private String date_debut;
     private String date_fin;
     private int montant_tot;
 
-    public Location(List<Article> article, Client client, String date_debut, String date_fin, int montant_tot) {
-        this.article = article;
+    public Location(List<Article> articles, Client client, String date_debut, String date_fin, int montant_tot) {
+        this.articles = articles;
         this.client = client;
         this.date_debut = date_debut;
         this.date_fin = date_fin;
@@ -20,7 +20,7 @@ public class Location {
     @Override
     public String toString() {
         return "Location{" +
-                "article=" + this.getArticle().toString() +
+                "articles=" + this.getarticles().toString() +
                 "\n client=" + this.getClient().getNom() + " " + this.getClient().getPrenom() +
                 "\n date_debut='" + date_debut +
                 "\n date_fin='" + date_fin +
@@ -28,16 +28,16 @@ public class Location {
                 '}';
     }
 
-    public List<Article> getArticle() {
-        return article;
+    public List<Article> getarticles() {
+        return articles;
     }
 
-    public void addArticle(Article article) {
-        this.article.add(article);
+    public void addarticles(Article articles) {
+        this.articles.add(articles);
     }
 
-    public void delArticle(Article article){
-        this.article.remove(article);
+    public void delarticles(Article articles){
+        this.articles.remove(articles);
     }
 
     public Client getClient() {
