@@ -14,7 +14,7 @@ public class Window {
         Bouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("test");
+                System.out.println("tst");
 
             }
         });
