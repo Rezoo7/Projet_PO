@@ -2,12 +2,12 @@ package Modele.Articles;
 
 import Modele.Article;
 
-public class Fauteuils_Roulants extends Article {
+public class Fauteuil_Roulant extends Article {
 
     private double largeur_assise;
     private int poids_max;
 
-    public Fauteuils_Roulants(String ref, String marque, String modele, int prix_loc, double largeur,int poids_max) {
+    public Fauteuil_Roulant(String ref, String marque, String modele, int prix_loc, double largeur, int poids_max) {
         super(ref, marque, modele, prix_loc);
 
         this.largeur_assise = largeur;
@@ -33,7 +33,7 @@ public class Fauteuils_Roulants extends Article {
 
     @Override
     public String toString() {
-        return "Fauteuils_Roulants{" +
+        return "Fauteuil_Roulant{" +
                 super.toString() +
                 "Largeur d'Assise=" + largeur_assise + "cm" +
                 "\n Poids Max = " + poids_max + "kg" +

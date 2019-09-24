@@ -2,7 +2,7 @@ package Modele.Articles;
 
 import Modele.Article;
 
-public class Tables_alite extends Article {
+public class Table_alite extends Article {
 
     //Specifications table alite
 
@@ -12,7 +12,7 @@ public class Tables_alite extends Article {
     private String dimension;
     private double poids_max;
 
-    public Tables_alite(String ref,String marque,String modele, int prix_loc , double longueur_plat, double profondeur_plat, String hauteur_var, double poids_max) {
+    public Table_alite(String ref, String marque, String modele, int prix_loc , double longueur_plat, double profondeur_plat, String hauteur_var, double poids_max) {
 
         super(ref,marque,modele,prix_loc);
 
@@ -62,7 +62,7 @@ public class Tables_alite extends Article {
 
     @Override
     public String toString() {
-        return "Tables_alite {" +
+        return "Table_alite {" +
                 super.toString()+
                 "Longueur Plateau =" + longueur_plat + "cm"+
                 "\n Profondeur Plateau=" + profondeur_plat +

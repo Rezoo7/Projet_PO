@@ -37,7 +37,7 @@ public abstract class Article {
     public void setModele(String modele) {
         this.modele = modele;
     }
-
+//
     public int getPrix_loc() {
         return prix_loc;
     }
