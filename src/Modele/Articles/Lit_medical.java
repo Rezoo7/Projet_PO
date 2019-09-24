@@ -9,7 +9,7 @@ public class Lit_medical extends Article {
     private double hauteur_min;
     private double hauteur_max;
 
-    private int poids_max;
+    private int poids_max;  
     private String type;
     private String hauteur_var;
     private String dimensions;
