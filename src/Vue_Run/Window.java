@@ -6,18 +6,14 @@ import java.awt.event.ActionListener;
 
 
 public class Window {
-    private JButton Bouton;
     private JPanel panel1;
+    private JList Liste_Articles;
+    private JTextArea Details;
+    private JButton Louer;
 
     public Window(){
     	
-        Bouton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("tst");
 
-            }
-        });
     };
 
     public static void main(String args[]){
