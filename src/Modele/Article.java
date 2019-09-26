@@ -57,6 +57,6 @@ public abstract class Article {
         return "Réference :'" + ref +
                 "\n Marque='" + marque +
                 "\n Modele='" + modele +
-                "\n Prix Location =" + prix_loc + "€ /jour" + "\n";
+                "\n Prix Location =" + prix_loc + "€ /j" + "\n";
     }
 }
