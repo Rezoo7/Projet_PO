@@ -29,7 +29,7 @@ public class Window extends JFrame {
 
         for(int i =0;i<=base.selectAll().size()-1;i++){
             def.addElement(base.selectAll().get(i));
-            def.addElement(" ");
+            def.addElement("_ ");
             System.out.println(base.selectAll().get(i));
         }
 
