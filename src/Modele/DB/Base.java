@@ -175,7 +175,7 @@ public class Base {
         String[] tab = app.selectAllOptionsArticle("SM0001");
 
         for(int i = 0; i <= tab.length-1;i++){
-            if(!tab[i].contains(" 0.0")){
+            if(!tab[i].contains(" 0.0") && !tab[i].contains(" null")){
                 System.out.println(tab[i]);
             }
         }
