@@ -24,29 +24,34 @@ public class Base {
     /**
      * Select All the datas with id, name and reference
      */
-    public void selectAll(){
+    public String selectAll(){
         String sql = "SELECT id, nom, reference FROM articles;";
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
+
+            String Select = "";
             // loop through the result set
             while (rs.next()) {
-                System.out.println("ID : " +rs.getInt("id") +  " |\t" +
+                Select = Select + ("ID : " +rs.getInt("id") +  " |\t" +
                         "Nom : "+ rs.getString("nom") + " |\t" +
-                        "Reference : "+rs.getString("reference"));
+                        "Reference : "+rs.getString("reference")) + "\n";
             }
+            return Select;
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return "error";
 
     }
 
     /**
      * @param type (exemple LM : Lit Médical...)
      */
-    public void selectArticle(String type){
+    public String selectArticle(String type){
 
         String sql = "SELECT id, nom, reference FROM articles WHERE reference LIKE '"+ type+"%%%%';";
 
@@ -54,18 +59,21 @@ public class Base {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
+            String Select = "";
             // loop through the result set
             while (rs.next()) {
-                System.out.println("ID : " +rs.getInt("id") +  " |\t" +
+                Select = Select + ("ID : " +rs.getInt("id") +  " |\t" +
                         "Nom : "+ rs.getString("nom") + " |\t" +
                         "Reference : "+rs.getString("reference"));
             }
+            return Select;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return "error";
     }
 
-    public void selectArticlePrice(String ref){
+    public int selectArticlePrice(String ref){
         String sql = "SELECT id, nom, reference, prix_location FROM articles WHERE reference = '"+ ref + "';";
 
         try (Connection conn = this.connect();
@@ -76,18 +84,45 @@ public class Base {
             while (rs.next()) {
                 System.out.println("Le prix est de  : " + rs.getInt("prix_location") +
                         "€  Soit "+ rs.getInt("prix_location")*7 + "€ /Semaine");
+
+                return rs.getInt("prix_location");
             }
+
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return 0;
+    }
+
+    public Double selectArticleOption(String ref, String option){
+        String sql = "SELECT id, nom, reference,"+ option +" FROM articles WHERE reference = '"+ ref + "';";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            Double select= 0.0;
+            // loop through the result set
+            while (rs.next()) {
+                select = rs.getDouble(option);
+            }
+
+            return select;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0.0;
     }
 
 
     public static void main(String[] args)
     {
        Base app = new Base();
-       //app.selectAll();
-       //app.SelectArticle("SM");
-        app.selectArticlePrice("SM0001");
+        System.out.println(app.selectAll());
+        app.selectArticle("SM");
+        System.out.println("Prix Journée : "+ app.selectArticlePrice("SM0001") + "€");
+        System.out.println("Capacité levage SM : " + app.selectArticleOption("SM0001","capacite_levage") + " Kg");
     }
 }
