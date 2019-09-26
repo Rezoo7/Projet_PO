@@ -46,6 +46,12 @@ public abstract class Article {
         this.prix_loc = prix_loc;
     }
 
+    public double prix_loc_jrs(int nbjrs){ return getPrix_loc()*nbjrs ;}
+
+    public double prix_loc_sem(){return getPrix_loc()*7;}
+
+
+
     @Override
     public String toString() {
         return "Réference :'" + ref +

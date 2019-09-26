@@ -10,7 +10,7 @@ public class Base {
      */
     private Connection connect() {
         // SQLite connection string (A modifié selon le chemin du projet !!)
-        String url = "jdbc:sqlite:C://users/maxim/Documents/IUT - LP/Annee3_LP/PO/Projet_PO/location.db";
+        String url = "jdbc:sqlite:/home/e170568a/git/Projet_PO/location.db";
 
         Connection conn = null;
         try {
@@ -119,10 +119,11 @@ public class Base {
 
     public static void main(String[] args)
     {
-       Base app = new Base();
+        Base app = new Base();
         System.out.println(app.selectAll());
         app.selectArticle("SM");
         System.out.println("Prix Journée : "+ app.selectArticlePrice("SM0001") + "€");
         System.out.println("Capacité levage SM : " + app.selectArticleOption("SM0001","capacite_levage") + " Kg");
     }
 }
+
