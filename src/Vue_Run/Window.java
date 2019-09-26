@@ -20,25 +20,25 @@ public class Window extends JFrame {
         this.description.setLayout(new GridLayout(2,1));
 
 
-
-
-
         Base base = new Base();
         DefaultListModel<String> def = new DefaultListModel<String>();
     	this.list1 = new JList<String>(def);
 
-        for(int i =0;i<=base.selectAll().size()-1;i++){
-            def.addElement(base.selectAll().get(i));
-            def.addElement("_ ");
-            System.out.println(base.selectAll().get(i));
+        for (String item: base.selectAll()) {
+            def.addElement(base.selectAll().get(base.selectAll().indexOf(item)));
         }
 
+        this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
+        this.list1.setVisibleRowCount(-1);
+
+
         this.panel1.add(list1);
+        this.panel1.add(this.description);
 
         this.setContentPane(this.panel1);
         this.setName(nom);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(new Dimension(1000,700));
+        this.setSize(new Dimension(1000,900));
         this.pack();
         this.setVisible(true);
     };

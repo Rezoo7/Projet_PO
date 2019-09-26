@@ -35,16 +35,13 @@ public class Base {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-
-           String select = "";
-
             while (rs.next()) {
-                select = select + ("ID : " +rs.getInt("id") +  " |\t" +
+                liste.add("ID : " +rs.getInt("id") +  " |\t" +
                         "Nom : "+ rs.getString("nom") + " |\t" +
-                        "Reference : "+rs.getString("reference")) + "\n";
+                        "Reference : "+rs.getString("reference"));
 
             }
-            liste.add(select);
+
             return liste;
 
         } catch (SQLException e) {
@@ -69,8 +66,8 @@ public class Base {
             // loop through the result set
             while (rs.next()) {
                 Select = Select + ("ID : " +rs.getInt("id") +  " |\t" +
-                        "Nom : "+ rs.getString("nom") + " |\t" +
-                        "Reference : "+rs.getString("reference"));
+                        " Nom : "+ rs.getString("nom") + " |\t" +
+                        " Reference : "+rs.getString("reference"));
             }
             return Select;
         } catch (SQLException e) {
@@ -101,7 +98,7 @@ public class Base {
         return 0;
     }
 
-    public Double selectArticleOption(String ref, String option){
+    public Number selectArticleOption(String ref, String option){
         String sql = "SELECT id, nom, reference,"+ option +" FROM articles WHERE reference = '"+ ref + "';";
 
         try (Connection conn = this.connect();
@@ -122,6 +119,49 @@ public class Base {
         return 0.0;
     }
 
+    public String[] selectAllOptionsArticle(String ref){
+        String sql = "SELECT * FROM articles WHERE reference = '"+ ref + "';";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            String[] params = new String[18];
+
+            // loop through the result set
+            while (rs.next()) {
+
+               params[0] = "ID :"+rs.getInt("ID");
+               params[1] = "Nom : "+rs.getString("nom");
+               params[2] = "Référence : "+rs.getString("reference");
+               params[3] = "Marque : "+ rs.getString("marque");
+               params[4] = "Prix Location : "+rs.getInt("prix_location") + "€ /jour";
+               params[5] = "Poids Maximal : "+rs.getDouble("poids_max") + " Kg";
+               params[6] = "Hauteur Variable : "+rs.getDouble("hauteur_variable") + "cm";
+               params[7] = "Longueur Plateau : "+rs.getDouble("longueur_plat")+"cm";
+               params[8] = "Profondeur Plateau : "+rs.getDouble("profondeur_plat")+"cm";
+               params[9] = "Type : "+rs.getString("type");
+               params[10] = "Hauteur Maximale : "+rs.getDouble("hauteur_max")+"cm";
+               params[11] = "Hauteur Minimale : "+rs.getDouble("hauteur_min") +"cm";
+               params[12] = "Largeur : "+rs.getDouble("largeur")+"cm";
+               params[13] = "Longueur : "+rs.getDouble("longueur")+"cm";
+               params[14] = "Hauteur : "+rs.getDouble("hauteur")+ "cm";
+               params[15] = "Temps Gonflage : "+rs.getDouble("temps_gonflage")+ "s";
+               params[16] = "Capacité Levage : "+rs.getDouble("capacite_levage")+ "Kg";
+               params[17] = "Degré de Pivotage : "+rs.getDouble("degre_pivotage")+"°";
+
+            }
+
+            return params;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+
+    }
+
+
 
     public static void main(String[] args)
     {
@@ -130,6 +170,15 @@ public class Base {
         app.selectArticle("SM");
         System.out.println("Prix Journée : "+ app.selectArticlePrice("SM0001") + "€");
         System.out.println("Capacité levage SM : " + app.selectArticleOption("SM0001","capacite_levage") + " Kg");
+
+
+        String[] tab = app.selectAllOptionsArticle("SM0001");
+
+        for(int i = 0; i <= tab.length-1;i++){
+            if(!tab[i].contains(" 0.0")){
+                System.out.println(tab[i]);
+            }
+        }
     }
 }
 
