@@ -1,6 +1,8 @@
 package Modele.DB;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Base {
 
@@ -10,7 +12,7 @@ public class Base {
      */
     private Connection connect() {
         // SQLite connection string (A modifié selon le chemin du projet !!)
-        String url = "jdbc:sqlite:/home/e170568a/git/Projet_PO/location.db";
+        String url = "jdbc:sqlite:C:\\Users\\maxim\\Documents\\IUT - LP\\Annee3_LP\\PO\\Projet_PO\\location.db";
 
         Connection conn = null;
         try {
@@ -24,27 +26,31 @@ public class Base {
     /**
      * Select All the datas with id, name and reference
      */
-    public String selectAll(){
-        String sql = "SELECT id, nom, reference FROM articles;";
+    public ArrayList<String> selectAll(){
+        String sql = "SELECT id, nom, reference, prix_location FROM articles;";
+
+        ArrayList<String> liste = new ArrayList<String>();
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
 
-            String Select = "";
-            // loop through the result set
+           String select = "";
+
             while (rs.next()) {
-                Select = Select + ("ID : " +rs.getInt("id") +  " |\t" +
+                select = select + ("ID : " +rs.getInt("id") +  " |\t" +
                         "Nom : "+ rs.getString("nom") + " |\t" +
                         "Reference : "+rs.getString("reference")) + "\n";
+
             }
-            return Select;
+            liste.add(select);
+            return liste;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return "error";
+        return null;
 
     }
 
