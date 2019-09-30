@@ -1,5 +1,6 @@
 package Vue_Run;
 
+import Controleur.ListArticlesController;
 import Modele.DB.*;
 
 import javax.swing.*;
@@ -28,6 +29,9 @@ public class Window extends JFrame {
             def.addElement(base.selectAll().get(base.selectAll().indexOf(item)));
         }
 
+
+        //TODO : Regarder comment récuperer l'article avec l'event listSelection
+        this.list1.addListSelectionListener(new ListArticlesController(this.description,this.list1));
         this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
         this.list1.setVisibleRowCount(-1);
 

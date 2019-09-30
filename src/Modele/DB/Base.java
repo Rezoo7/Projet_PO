@@ -119,14 +119,14 @@ public class Base {
         return 0.0;
     }
 
-    public String[] selectAllOptionsArticle(String ref){
-        String sql = "SELECT * FROM articles WHERE reference = '"+ ref + "';";
+    public String[] selectAllOptionsArticle(int id){
+        String sql = "SELECT * FROM articles WHERE id = '"+ id + "';";
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-            String[] params = new String[18];
+            String[] params = new String[17];
 
             // loop through the result set
             while (rs.next()) {
@@ -137,20 +137,21 @@ public class Base {
                params[3] = "Marque : "+ rs.getString("marque");
                params[4] = "Prix Location : "+rs.getInt("prix_location") + "€ /jour";
                params[5] = "Poids Maximal : "+rs.getDouble("poids_max") + " Kg";
-               params[6] = "Hauteur Variable : "+rs.getDouble("hauteur_variable") + "cm";
-               params[7] = "Longueur Plateau : "+rs.getDouble("longueur_plat")+"cm";
-               params[8] = "Profondeur Plateau : "+rs.getDouble("profondeur_plat")+"cm";
-               params[9] = "Type : "+rs.getString("type");
-               params[10] = "Hauteur Maximale : "+rs.getDouble("hauteur_max")+"cm";
-               params[11] = "Hauteur Minimale : "+rs.getDouble("hauteur_min") +"cm";
-               params[12] = "Largeur : "+rs.getDouble("largeur")+"cm";
-               params[13] = "Longueur : "+rs.getDouble("longueur")+"cm";
-               params[14] = "Hauteur : "+rs.getDouble("hauteur")+ "cm";
-               params[15] = "Temps Gonflage : "+rs.getDouble("temps_gonflage")+ "s";
-               params[16] = "Capacité Levage : "+rs.getDouble("capacite_levage")+ "Kg";
-               params[17] = "Degré de Pivotage : "+rs.getDouble("degre_pivotage")+"°";
+               params[6] = "Longueur Plateau : "+rs.getDouble("longueur_plat")+"cm";
+               params[7] = "Profondeur Plateau : "+rs.getDouble("profondeur_plat")+"cm";
+               params[8] = "Type : "+rs.getString("type");
+               params[9] = "Hauteur Maximale : "+rs.getDouble("hauteur_max")+"cm";
+               params[10] = "Hauteur Minimale : "+rs.getDouble("hauteur_min") +"cm";
+               params[11] = "Largeur : "+rs.getDouble("largeur")+"cm";
+               params[12] = "Longueur : "+rs.getDouble("longueur")+"cm";
+               params[13] = "Hauteur : "+rs.getDouble("hauteur")+ "cm";
+               params[14] = "Temps Gonflage : "+rs.getDouble("temps_gonflage")+ "s";
+               params[15] = "Capacité Levage : "+rs.getDouble("capacite_levage")+ "Kg";
+               params[16] = "Degré de Pivotage : "+rs.getDouble("degre_pivotage")+"°";
 
             }
+
+
 
             return params;
 
@@ -172,7 +173,7 @@ public class Base {
         System.out.println("Capacité levage SM : " + app.selectArticleOption("SM0001","capacite_levage") + " Kg");
 
 
-        String[] tab = app.selectAllOptionsArticle("SM0001");
+        String[] tab = app.selectAllOptionsArticle(1);
 
         for(int i = 0; i <= tab.length-1;i++){
             if(!tab[i].contains(" 0.0") && !tab[i].contains(" null")){
