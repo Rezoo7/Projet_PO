@@ -17,12 +17,13 @@ public class Window extends JFrame {
 
         this.panel1 = new JPanel();
         this.description = new JPanel();
+        this.b = new Base();
 
         this.panel1.setLayout(new GridLayout(1,1) );
         this.description.setLayout(new GridLayout(2,1));
 
 
-        this.b = new Base();
+
         DefaultListModel<String> def = new DefaultListModel<String>();
     	this.list1 = new JList<String>(def);
 
@@ -31,7 +32,6 @@ public class Window extends JFrame {
         }
 
 
-        //TODO : Regarder comment récuperer l'article avec l'event listSelection
         this.list1.addListSelectionListener(new ListArticlesController(this.description,this.list1,b));
         this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
         this.list1.setVisibleRowCount(-1);
