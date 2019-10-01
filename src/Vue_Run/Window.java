@@ -11,6 +11,7 @@ public class Window extends JFrame {
     private JList<String> list1;
     private JPanel panel1;
     private JPanel description;
+    private Base b;
 
     public Window(String nom){
 
@@ -21,17 +22,17 @@ public class Window extends JFrame {
         this.description.setLayout(new GridLayout(2,1));
 
 
-        Base base = new Base();
+        this.b = new Base();
         DefaultListModel<String> def = new DefaultListModel<String>();
     	this.list1 = new JList<String>(def);
 
-        for (String item: base.selectAll()) {
-            def.addElement(base.selectAll().get(base.selectAll().indexOf(item)));
+        for (String item: b.selectAll()) {
+            def.addElement(b.selectAll().get(b.selectAll().indexOf(item)));
         }
 
 
         //TODO : Regarder comment récuperer l'article avec l'event listSelection
-        this.list1.addListSelectionListener(new ListArticlesController(this.description,this.list1));
+        this.list1.addListSelectionListener(new ListArticlesController(this.description,this.list1,b));
         this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
         this.list1.setVisibleRowCount(-1);
 
