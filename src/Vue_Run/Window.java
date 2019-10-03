@@ -43,8 +43,9 @@ public class Window extends JFrame {
         this.setContentPane(this.panel1);
         this.setName(nom);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(new Dimension(1000,900));
+        this.setPreferredSize(new Dimension(900,600));
         this.pack();
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
     };
 

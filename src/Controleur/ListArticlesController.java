@@ -23,23 +23,29 @@ public class ListArticlesController implements ListSelectionListener {
     @Override
     public void valueChanged(ListSelectionEvent e) {
 
-        System.out.println(this.articles.getSelectedIndex()); //OK
-        System.out.println("test");
-        String[] options = this.b.selectAllOptionsArticle(this.articles.getSelectedIndex());
-
         DefaultListModel<String> def = new DefaultListModel<String>();
         JList<String> desc = new JList<String>(def);
 
-        for (int i =0; i<= options.length-1;i++){
-            if(!options[i].contains(" 0.0") && !options[i].contains(" null")){
-
-                def.addElement(options[i]);
-                System.out.println(options[i]);
-            }
+        if(!def.isEmpty()){
+            def.removeAllElements();
         }
 
-        this.panel_desc.add(desc);
-        this.panel_desc.setVisible(true);
+        if (!e.getValueIsAdjusting()) {//This line prevents double events
 
+            System.out.println(this.articles.getSelectedIndex());
+            String[] options = this.b.selectAllOptionsArticle(this.articles.getSelectedIndex());
+
+            for (int i = 0; i <= options.length-1; i++) {
+                if (!options[i].contains(" 0.0") && !options[i].contains(" null")) {
+
+                    System.out.println(options[i]);
+                    def.addElement(options[i]);
+                }
+            }
+
+            this.panel_desc.add(desc);
+            this.panel_desc.setVisible(true);
+
+        }
     }
 }
