@@ -28,6 +28,7 @@ public class ListArticlesController implements ListSelectionListener {
 
         if(!def.isEmpty()){
             def.removeAllElements();
+            System.out.println("lllol");
         }
 
         if (!e.getValueIsAdjusting()) {//This line prevents double events
