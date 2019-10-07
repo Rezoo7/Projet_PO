@@ -13,6 +13,8 @@ public class Window extends JFrame {
     private JPanel description;
     private Base b;
 
+    private JTextArea desc_texte;
+
     public Window(String nom){
 
         this.panel1 = new JPanel();
@@ -32,7 +34,7 @@ public class Window extends JFrame {
         }
 
 
-        this.list1.addListSelectionListener(new ListArticlesController(this.description,this.list1,b));
+        this.list1.addListSelectionListener(new ListArticlesController(this.description,this.panel1,this.desc_texte,this.list1,b));
         this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
         this.list1.setVisibleRowCount(-1);
 
