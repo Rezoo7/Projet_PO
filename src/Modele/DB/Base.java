@@ -129,7 +129,7 @@ public class Base {
 
             // loop through the result set
             while (rs.next()) {
-               params[0] = "ID :"+rs.getInt("ID");
+               params[0] = ""; //"ID :"+rs.getInt("ID");
                params[1] = "Nom : "+rs.getString("nom");
                params[2] = "Référence : "+rs.getString("reference");
                params[3] = "Marque : "+ rs.getString("marque");

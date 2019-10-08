@@ -15,13 +15,15 @@ public class ListArticlesController implements ListSelectionListener {
     private Base b ;
     private JPanel panel;
     private JPanel prin;
+    private JPanel loc;
 
-    public ListArticlesController(JPanel pan,JPanel principale,JTextArea desc, JList<String> liste, Base base){
+    public ListArticlesController(JPanel principale,JPanel pan,JPanel loc,JTextArea desc, JList<String> liste, Base base){
         this.texte_desc = desc;
         this.articles = liste;
         this.b = base;
         this.panel = pan;
         this.prin = principale;
+        this.loc = loc;
     }
 
 
@@ -35,14 +37,22 @@ public class ListArticlesController implements ListSelectionListener {
 
             for (int i = 0; i <= options.length-1; i++) {
                 if (!options[i].contains(" 0.0") && !options[i].contains(" null")) {
-                    texte = texte + options[i] + "\n";
+                    texte = texte + options[i] + "\n \n";
                 }
             }
 
-
+            System.out.println(texte);
             this.texte_desc.setText(texte);
+            this.texte_desc.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
             this.texte_desc.setEnabled(false);
             this.texte_desc.setDisabledTextColor(Color.BLACK);
+
+            JButton louer = new JButton("Louer");
+            louer.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
+            louer.setBackground(Color.white);
+            this.loc.removeAll();
+            this.loc.add(louer,BorderLayout.CENTER);
+
 
             this.panel.removeAll();
             this.prin.repaint();

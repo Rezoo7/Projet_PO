@@ -11,6 +11,7 @@ public class Window extends JFrame {
     private JList<String> list1;
     private JPanel panel1;
     private JPanel description;
+    private JPanel location;
     private Base b;
 
     private JTextArea desc_texte;
@@ -19,10 +20,12 @@ public class Window extends JFrame {
 
         this.panel1 = new JPanel();
         this.description = new JPanel();
+        this.location = new JPanel();
         this.b = new Base();
 
         this.panel1.setLayout(new GridLayout(1,1) );
-        this.description.setLayout(new GridLayout(2,1));
+        this.description.setLayout(new GridLayout(1,1));
+        this.location.setLayout(new BorderLayout());
 
 
 
@@ -33,14 +36,15 @@ public class Window extends JFrame {
             def.addElement(b.selectAll().get(b.selectAll().indexOf(item)));
         }
 
-
-        this.list1.addListSelectionListener(new ListArticlesController(this.description,this.panel1,this.desc_texte,this.list1,b));
+        this.list1.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
+        this.list1.addListSelectionListener(new ListArticlesController(this.panel1,this.description,this.location,this.desc_texte,this.list1,b));
         this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
         this.list1.setVisibleRowCount(-1);
-
+        this.list1.setFixedCellHeight(60);
 
         this.panel1.add(list1);
         this.panel1.add(this.description);
+        this.panel1.add(this.location);
 
         this.setContentPane(this.panel1);
         this.setName(nom);
