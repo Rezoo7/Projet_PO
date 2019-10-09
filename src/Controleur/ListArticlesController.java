@@ -41,18 +41,17 @@ public class ListArticlesController implements ListSelectionListener {
                 }
             }
 
-            System.out.println(texte);
             this.texte_desc.setText(texte);
-            this.texte_desc.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
+            this.texte_desc.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
             this.texte_desc.setEnabled(false);
             this.texte_desc.setDisabledTextColor(Color.BLACK);
 
             JButton louer = new JButton("Louer");
-            louer.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
+            louer.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 19));
             louer.setBackground(Color.white);
+
             this.loc.removeAll();
             this.loc.add(louer,BorderLayout.CENTER);
-
 
             this.panel.removeAll();
             this.prin.repaint();
