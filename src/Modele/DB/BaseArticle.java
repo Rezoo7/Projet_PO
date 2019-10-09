@@ -160,12 +160,29 @@ public class Base {
 
     }
 
+    public boolean verifyID_Article(int id){
+
+        String sql = "SELECT id FROM articles WHERE id=" + id + ";";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            return rs.next();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+
+    }
+
 
 
     public static void main(String[] args)
     {
         Base app = new Base();
-        System.out.println(app.selectAll());
+       /* System.out.println(app.selectAll());
         app.selectArticle("SM");
         System.out.println("Prix Journée : "+ app.selectArticlePrice("SM0001") + "€");
         System.out.println("Capacité levage SM : " + app.selectArticleOption("SM0001","capacite_levage") + " Kg");
@@ -177,7 +194,9 @@ public class Base {
             if(!tab[i].contains(" 0.0") && !tab[i].contains(" null")){
                 System.out.println(tab[i]);
             }
-        }
+        }*/
+
+        System.out.println(app.verifyID_Article(1)); //good
     }
 }
 
