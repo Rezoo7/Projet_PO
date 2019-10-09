@@ -14,7 +14,7 @@ public class Window extends JFrame {
     private JPanel description;
     private JPanel location;
     private JPanel formulaire;
-    private Base b;
+    private BaseArticle b;
 
     private JTextArea desc_texte;
 
@@ -25,7 +25,7 @@ public class Window extends JFrame {
         this.description = new JPanel();
         this.location = new JPanel();
         this.formulaire = new JPanel();
-        this.b = new Base();
+        this.b = new BaseArticle();
 
         this.panel1.setLayout(new GridLayout(2,1) );
         this.description.setLayout(new GridLayout(1,1));

@@ -30,7 +30,24 @@ public class BaseUser {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-           return rs.next();
+            return rs.next();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+
+    }
+
+    public boolean verifyID_User(int id){
+
+        String sql = "SELECT id FROM users WHERE id=" + id + ";";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            return rs.next();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -81,20 +98,22 @@ public class BaseUser {
 
     public static void main(String[] args) {
         BaseUser base = new BaseUser();
+       /* System.out.println(base.verifyUser("demo","demo"));
 
-        System.out.println(base.verifyUser("demo","demo"));
-
-        /*try {
+        *//*try {
             base.addUser("test","test");
         } catch (SQLException e) {
             e.printStackTrace();
-        }*/
+        }*//*
 
 
         try {
             base.deleteUser("test","test");
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        System.out.println(base.verifyID_User(1));
+
     }
 }

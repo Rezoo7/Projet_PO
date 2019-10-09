@@ -3,21 +3,20 @@ package Controleur;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import Modele.DB.Base;
+import Modele.DB.BaseArticle;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class ListArticlesController implements ListSelectionListener {
 
     private JList<String> articles;
     private JTextArea texte_desc;
-    private Base b ;
+    private BaseArticle b ;
     private JPanel panel;
     private JPanel prin;
     private JPanel loc;
 
-    public ListArticlesController(JPanel principale,JPanel pan,JPanel loc,JTextArea desc, JList<String> liste, Base base){
+    public ListArticlesController(JPanel principale,JPanel pan,JPanel loc,JTextArea desc, JList<String> liste, BaseArticle base){
         this.texte_desc = desc;
         this.articles = liste;
         this.b = base;

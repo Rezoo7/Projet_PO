@@ -1,26 +1,30 @@
 package Modele;
-import java.util.List;
+
+import java.sql.Date;
 
 public class Location {
 
-    private List<Article> articles;
-    private Client client;
-    private String date_debut;
-    private String date_fin;
-    private int montant_tot;
+    private Article article;
+    private User user;
+    private Date date_debut;
+    private Date date_fin;
+    private int nombre_jour;
+    private double montant_tot;
 
-    public Location(List<Article> articles, Client client, String date_debut, String date_fin, int montant_tot) {
-        this.articles = articles;
-        this.client = client;
+    public Location(Article article, User user, Date date_debut, Date date_fin, int nombre_jours, double montant_tot) {
+
+        this.article = article;
+        this.user = user;
         this.date_debut = date_debut;
         this.date_fin = date_fin;
+        this.nombre_jour = nombre_jours;
         this.montant_tot = montant_tot;
     }
 
     @Override
     public String toString() {
         return "Location{" +
-                "articles=" + this.getarticles().toString() +
+                "articles=" + this.getarticle().toString() +
                 "\n client=" + this.getClient().getNom() + " " + this.getClient().getPrenom() +
                 "\n date_debut='" + date_debut +
                 "\n date_fin='" + date_fin +
@@ -28,43 +32,51 @@ public class Location {
                 '}';
     }
 
-    public List<Article> getarticles() {
-        return articles;
+    public Article getArticle() {
+        return article;
     }
 
-    public void addarticles(Article articles) {
-        this.articles.add(articles);
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
-    public void delarticles(Article articles){
-        this.articles.remove(articles);
+    public int getNombre_jour() {
+        return nombre_jour;
     }
 
-    public Client getClient() {
-        return client;
+    public void setNombre_jour(int nombre_jour) {
+        this.nombre_jour = nombre_jour;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public Article getarticle() {
+        return article;
     }
 
-    public String getDate_debut() {
+    public User getClient() {
+        return user;
+    }
+
+    public void setClient(User client) {
+        this.user = client;
+    }
+
+    public Date getDate_debut() {
         return date_debut;
     }
 
-    public void setDate_debut(String date_debut) {
+    public void setDate_debut(Date date_debut) {
         this.date_debut = date_debut;
     }
 
-    public String getDate_fin() {
+    public Date getDate_fin() {
         return date_fin;
     }
 
-    public void setDate_fin(String date_fin) {
+    public void setDate_fin(Date date_fin) {
         this.date_fin = date_fin;
     }
 
-    public int getMontant_tot() {
+    public double getMontant_tot() {
         return montant_tot;
     }
 

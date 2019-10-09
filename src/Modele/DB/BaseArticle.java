@@ -1,10 +1,12 @@
 package Modele.DB;
 
+import Modele.Article;
+import Modele.Articles.*;
+
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Base {
+public class BaseArticle {
 
     /**
      * Connect to the location.db database
@@ -50,10 +52,67 @@ public class Base {
 
     }
 
+    public Article selectArticleByID(int id) {
+        String sql = "SELECT * FROM articles WHERE id="+id+";";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            String nom = rs.getString("nom");
+            String ref = rs.getString("reference");
+            String marque = rs.getString("marque");
+            double prix_loc = rs.getDouble("prix_location");
+            double poids = rs.getDouble("poids_max");
+            double longueur_plat = rs.getDouble("longueur_plat");
+            double profondeur_plat = rs.getDouble("profondeur_plat");
+            String type = rs.getString("type");
+            double hauteur_min = rs.getDouble("hauteur_min");
+            double hauteur_max = rs.getDouble("hauteur_max");
+            double largeur = rs.getDouble("largeur");
+            double longueur = rs.getDouble("longueur");
+            double hauteur = rs.getDouble("hauteur");
+            double temps_gonflage = rs.getDouble("temps_gonflage");
+            double capacite_levage = rs.getDouble("capacite_levage");
+            double degre = rs.getDouble("degre_pivotage");
+
+            //Creation selon le Type d'article (Lit Mediaclisé, Souleve Malade...)
+
+            if(ref.startsWith("LM")){
+                Lit_medical article = new Lit_medical(nom,ref,marque,type,prix_loc,longueur,largeur,hauteur_min,hauteur_max,poids);
+                article.toString();
+                return article;
+            }
+            else if(ref.startsWith("SM")){
+                Souleve_malade article = new Souleve_malade(nom,ref,marque,type,prix_loc,capacite_levage,degre);
+                article.toString();
+                return article;
+            }
+            else if(ref.startsWith("MA")){
+                Matelas_air article = new Matelas_air(nom,ref,marque,type,prix_loc,poids,temps_gonflage,largeur,longueur,hauteur);
+                article.toString();
+                return article;
+            }
+            else if(ref.startsWith("FR")){
+                Fauteuil_Roulant article = new Fauteuil_Roulant(nom,ref,marque,type,prix_loc,largeur,poids);
+                article.toString();
+                return article;
+            }
+            else if(ref.startsWith("TA")){
+                Table_alite article = new Table_alite(nom,ref,marque,type,prix_loc,longueur_plat,profondeur_plat,hauteur_min,hauteur_max,poids);
+                article.toString();
+                return article;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
     /**
      * @param type (exemple LM : Lit Médical...)
      */
-    public String selectArticle(String type){
+    public String selectArticlesWithType(String type){
 
         String sql = "SELECT id, nom, reference FROM articles WHERE reference LIKE '"+ type+"%%%%';";
 
@@ -75,8 +134,8 @@ public class Base {
         return "error";
     }
 
-    public int selectArticlePrice(String ref){
-        String sql = "SELECT id, nom, reference, prix_location FROM articles WHERE reference = '"+ ref + "';";
+    public int selectArticlePrice(int id){
+        String sql = "SELECT id, nom, reference, prix_location FROM articles WHERE id = '"+ id + "';";
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
@@ -181,7 +240,7 @@ public class Base {
 
     public static void main(String[] args)
     {
-        Base app = new Base();
+        BaseArticle app = new BaseArticle();
        /* System.out.println(app.selectAll());
         app.selectArticle("SM");
         System.out.println("Prix Journée : "+ app.selectArticlePrice("SM0001") + "€");
@@ -196,7 +255,7 @@ public class Base {
             }
         }*/
 
-        System.out.println(app.verifyID_Article(1)); //good
+        System.out.println(app.selectArticleByID(1));
     }
 }
 

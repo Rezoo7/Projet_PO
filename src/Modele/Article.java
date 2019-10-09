@@ -2,16 +2,26 @@ package Modele;
 
 public abstract class Article {
 
+    private String nom;
     private String ref;
     private String marque;
-    private String modele;
-    private int prix_loc;
+    private String type;
+    private double prix_loc;
 
-    public Article(String ref, String marque, String modele, int prix_loc) {
+    public Article(String nom ,String ref, String marque, String type, double prix_loc) {
+        this.nom = nom;
         this.ref = ref;
         this.marque = marque;
-        this.modele = modele;
+        this.type = type;
         this.prix_loc = prix_loc;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getRef() {
@@ -31,14 +41,14 @@ public abstract class Article {
     }
 
     public String getModele() {
-        return modele;
+        return type;
     }
 
     public void setModele(String modele) {
-        this.modele = modele;
+        this.type = modele;
     }
 //
-    public int getPrix_loc() {
+    public double getPrix_loc() {
         return prix_loc;
     }
 
@@ -56,7 +66,7 @@ public abstract class Article {
     public String toString() {
         return "Réference :'" + ref +
                 "\n Marque='" + marque +
-                "\n Modele='" + modele +
+                "\n Modele='" + type +
                 "\n Prix Location =" + prix_loc + "€ /j" + "\n";
     }
 }
