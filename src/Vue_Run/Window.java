@@ -1,5 +1,6 @@
 package Vue_Run;
 
+import Controleur.ConnexionController;
 import Controleur.FormController;
 import Controleur.ListArticlesController;
 import Modele.DB.*;
@@ -52,10 +53,10 @@ public class Window extends JFrame {
         this.panel1.add(this.formulaire);
         this.panel1.add(this.location);
 
-        JLabel text_mail = new JLabel("Email : ");      text_mail.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
-        JTextField mail = new JTextField("Email de Connexion");      mail.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
-        mail.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        mail.addMouseListener(new FormController(mail));
+        JLabel text_id = new JLabel("Identifiant : ");      text_id.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
+        JTextField id = new JTextField("ID de Connexion");      id.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
+        id.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        id.addMouseListener(new FormController(id));
 
         JLabel text_mdp = new JLabel("Mot de Passe : ");      text_mdp.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
         JTextField mdp = new JTextField("mot de passe ");      mdp.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
@@ -63,12 +64,20 @@ public class Window extends JFrame {
         mdp.addMouseListener(new FormController(mdp));
 
         JPanel infos = new JPanel();
+        JButton connexion = new JButton("Connexion (admin)");
+        connexion.setBorderPainted(false);
+        connexion.setFocusPainted(false);
+        connexion.setContentAreaFilled(true);
 
-        this.formulaire.add(text_mail);
-        this.formulaire.add(mail);
+        connexion.addActionListener(new ConnexionController(id,mdp,infos));
+
+
+        this.formulaire.add(text_id);
+        this.formulaire.add(id);
         this.formulaire.add(text_mdp);
         this.formulaire.add(mdp);
         this.formulaire.add(infos);
+        this.formulaire.add(connexion);
 
 
 

@@ -56,6 +56,13 @@ public class BaseUser {
 
     }
 
+    public boolean verifyAdmin(String id , String mdp){
+        if(id.equals("demo") && mdp.equals("demo")){
+            return true;
+        }
+        return false;
+    }
+
     public void addUser(String id , String mdp) throws SQLException {
 
         String insertion = "INSERT INTO users (identifiant, password) VALUES (?,?)";

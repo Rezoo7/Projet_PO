@@ -21,17 +21,6 @@ public class Location {
         this.montant_tot = montant_tot;
     }
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "articles=" + this.getarticle().toString() +
-                "\n client=" + this.getClient().getNom() + " " + this.getClient().getPrenom() +
-                "\n date_debut='" + date_debut +
-                "\n date_fin='" + date_fin +
-                "\n montant_tot=" + montant_tot + "€" +
-                '}';
-    }
-
     public Article getArticle() {
         return article;
     }

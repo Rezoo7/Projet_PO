@@ -4,26 +4,31 @@ public class User {
 
     private String identifiant;
     private String password;
+    private String adress;
 
-    public User(String identifiant, String password) {
+    public User(String identifiant, String password,String adress) {
         this.identifiant = identifiant;
         this.password = password;
+        this.adress = adress;
     }
 
-    public String getNom() {
+    public String getIdentifiant() {
         return identifiant;
     }
 
-    public void setNom(String identifiant) {
+    public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
 
-    public String getPrenom() {
-        return password;
-    }
-
-    public void setPrenom(String password) {
+    public void setPassword(String password) {
         this.password =  password;
     }
 
+    public String getAdress() {
+        return adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
 }
