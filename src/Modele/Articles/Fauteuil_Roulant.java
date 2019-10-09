@@ -5,10 +5,10 @@ import Modele.Article;
 public class Fauteuil_Roulant extends Article {
 
     private double largeur_assise;
-    private int poids_max;
+    private double poids_max;
 
-    public Fauteuil_Roulant(String ref, String marque, String modele, int prix_loc, double largeur, int poids_max) {
-        super(ref, marque, modele, prix_loc);
+    public Fauteuil_Roulant(String nom,String ref, String marque, String type, double prix_loc, double largeur, double poids_max) {
+        super(nom,ref, marque, type, prix_loc);
 
         this.largeur_assise = largeur;
         this.poids_max = poids_max;
@@ -23,11 +23,11 @@ public class Fauteuil_Roulant extends Article {
         this.largeur_assise = largeur_assise;
     }
 
-    public int getPoids_max() {
+    public double getPoids_max() {
         return poids_max;
     }
 
-    public void setPoids_max(int poids_max) {
+    public void setPoids_max(double poids_max) {
         this.poids_max = poids_max;
     }
 

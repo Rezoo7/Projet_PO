@@ -4,16 +4,16 @@ import Modele.Article;
 
 public class Matelas_air extends Article {
 
-    private int poids_max;
-    private int temps_gonflage;
-    private int largeur;
-    private int longueur;
-    private int hauteur;
+    private double poids_max;
+    private double temps_gonflage;
+    private double largeur;
+    private double longueur;
+    private double hauteur;
     private String dimension;
 
-    public Matelas_air(String ref, String marque, String modele, int prix_loc, int poids_max, int temps_gonflage, int largeur, int longueur, int hauteur) {
+    public Matelas_air(String nom, String ref, String marque, String type, double prix_loc, double poids_max, double temps_gonflage, double largeur, double longueur, double hauteur) {
 
-        super(ref, marque, modele, prix_loc);
+        super(nom,ref, marque, type, prix_loc);
 
         this.poids_max = poids_max;
         this.temps_gonflage = temps_gonflage;
@@ -22,43 +22,43 @@ public class Matelas_air extends Article {
         this.hauteur = hauteur;
     }
 
-    public int getPoids_max() {
+    public double getPoids_max() {
         return poids_max;
     }
 
-    public void setPoids_max(int poids_max) {
+    public void setPoids_max(double poids_max) {
         this.poids_max = poids_max;
     }
 
-    public int getTemps_gonflage() {
+    public double getTemps_gonflage() {
         return temps_gonflage;
     }
 
-    public void setTemps_gonflage(int temps_gonflage) {
+    public void setTemps_gonflage(double temps_gonflage) {
         this.temps_gonflage = temps_gonflage;
     }
 
-    public int getLargeur() {
+    public double getLargeur() {
         return largeur;
     }
 
-    public void setLargeur(int largeur) {
+    public void setLargeur(double largeur) {
         this.largeur = largeur;
     }
 
-    public int getLongueur() {
+    public double getLongueur() {
         return longueur;
     }
 
-    public void setLongueur(int longueur) {
+    public void setLongueur(double longueur) {
         this.longueur = longueur;
     }
 
-    public int getHauteur() {
+    public double getHauteur() {
         return hauteur;
     }
 
-    public void setHauteur(int hauteur) {
+    public void setHauteur(double hauteur) {
         this.hauteur = hauteur;
     }
 

@@ -4,19 +4,19 @@ import Modele.Article;
 
 public class Souleve_malade extends Article {
 
-    private int cap_levage;
-    private int degre_pivotage;
+    private double cap_levage;
+    private double degre_pivotage;
 
 
-    public Souleve_malade(String ref, String marque, String modele, int prix_loc, int capacite_lev, int degre_pivo) {
-        super(ref, marque, modele, prix_loc);
+    public Souleve_malade(String nom,String ref, String marque, String type, double prix_loc, double capacite_lev, double degre_pivo) {
+        super(nom,ref, marque, type, prix_loc);
 
         this.cap_levage = capacite_lev;
         this.degre_pivotage = degre_pivo;
     }
 
 
-    public int getCap_levage() {
+    public double getCap_levage() {
         return cap_levage;
     }
 
@@ -24,7 +24,7 @@ public class Souleve_malade extends Article {
         this.cap_levage = cap_levage;
     }
 
-    public int getDegre_pivotage() {
+    public double getDegre_pivotage() {
         return degre_pivotage;
     }
 

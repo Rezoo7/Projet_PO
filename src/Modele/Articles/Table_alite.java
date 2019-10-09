@@ -8,17 +8,19 @@ public class Table_alite extends Article {
 
     private double longueur_plat;
     private double profondeur_plat;
-    private String hauteur_var;
+    private double hauteur_min;
+    private double hauteur_max;
     private String dimension;
     private double poids_max;
 
-    public Table_alite(String ref, String marque, String modele, int prix_loc , double longueur_plat, double profondeur_plat, String hauteur_var, double poids_max) {
+    public Table_alite(String nom,String ref, String marque, String type, double prix_loc , double longueur_plat, double profondeur_plat, double hauteur_min,double hauteur_max, double poids_max) {
 
-        super(ref,marque,modele,prix_loc);
+        super(nom,ref,marque,type,prix_loc);
 
         this.longueur_plat = longueur_plat;
         this.profondeur_plat = profondeur_plat;
-        this.hauteur_var = hauteur_var;
+        this.hauteur_min = hauteur_min;
+        this.hauteur_max = hauteur_max;
         this.poids_max = poids_max;
     }
 
@@ -39,16 +41,24 @@ public class Table_alite extends Article {
         this.profondeur_plat = profondeur_plat;
     }
 
-    public String getHauteur_var() {
-        return hauteur_var;
+    public double getHauteur_min() {
+        return hauteur_min;
     }
 
-    public void setHauteur_var(String hauteur_var) {
-        this.hauteur_var = hauteur_var;
+    public void setHauteur_min(double hauteur_min) {
+        this.hauteur_min = hauteur_min;
+    }
+
+    public double getHauteur_max() {
+        return hauteur_max;
+    }
+
+    public void setHauteur_max(double hauteur_max) {
+        this.hauteur_max = hauteur_max;
     }
 
     public String getDimension() {
-        return this.getLongueur_plat() + " x " + this.getProfondeur_plat() + " x " + this.getHauteur_var();
+        return this.getLongueur_plat() + " x " + this.getProfondeur_plat() + " x (" + this.getHauteur_min() + " - " + this.getHauteur_max() + ")";
     }
 
     public double getPoids_max() {
@@ -66,7 +76,8 @@ public class Table_alite extends Article {
                 super.toString()+
                 "Longueur Plateau =" + longueur_plat + "cm"+
                 "\n Profondeur Plateau=" + profondeur_plat +
-                "\n Hauteur Variable = " + hauteur_var + "cm" +
+                "\n Hauteur min = " + hauteur_min + "cm" +
+                "\n Hauteur max = " + hauteur_max + "cm" +
                 "\n Dimension= " + dimension + "cm" +
                 "\n Poids Maximal =" + poids_max + "kg" +
                 '}';

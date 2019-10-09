@@ -9,21 +9,19 @@ public class Lit_medical extends Article {
     private double hauteur_min;
     private double hauteur_max;
 
-    private int poids_max;  
-    private String type;
+    private double poids_max;
     private String hauteur_var;
     private String dimensions;
 
 
-    public Lit_medical(String ref, String marque, String modele, int prix_loc, double longueur, double largeur, double hauteur_min, double hauteur_max, int poids_max, String type) {
-        super(ref, marque, modele, prix_loc);
+    public Lit_medical(String nom,String ref, String marque, String type, double prix_loc, double longueur, double largeur, double hauteur_min, double hauteur_max, double poids_max) {
+        super(nom,ref, marque, type, prix_loc);
 
         this.longueur = longueur;
         this.largeur = largeur;
         this.hauteur_min = hauteur_min;
         this.hauteur_max = hauteur_max;
         this.poids_max = poids_max;
-        this.type = type;
     }
 
     public double getLongueur() {
@@ -58,20 +56,12 @@ public class Lit_medical extends Article {
         this.hauteur_max = hauteur_max;
     }
 
-    public int getPoids_max() {
+    public double getPoids_max() {
         return poids_max;
     }
 
     public void setPoids_max(int poids_max) {
         this.poids_max = poids_max;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getHauteurVar(){
@@ -89,7 +79,6 @@ public class Lit_medical extends Article {
                 "Longueur =" + longueur + "cm" +
                 "\n Largeur =" + largeur + "cm" +
                 "\n Poids Max =" + poids_max + "kg" +
-                "\n Type = " + type +
                 "\n Dimensions = " + dimensions +
                 '}';
     }
