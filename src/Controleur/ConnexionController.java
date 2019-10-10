@@ -3,18 +3,19 @@ package Controleur;
 import Modele.DB.BaseUser;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ConnexionController implements ActionListener {
 
-    private String id;
-    private String mdp;
+    private JTextField id;
+    private JTextField mdp;
     private JPanel info;
 
     public ConnexionController(JTextField id, JTextField mdp, JPanel info){
-        this.id = id.getText();
-        this.mdp = mdp.getText();
+        this.id = id;
+        this.mdp = mdp;
         this.info = info;
     }
 
@@ -22,16 +23,22 @@ public class ConnexionController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         BaseUser baseUser = new BaseUser();
-        System.out.println(id);
-        System.out.println(mdp);
+        System.out.println(id.getText());
+        System.out.println(mdp.getText());
 
-        if(baseUser.verifyAdmin(this.id,this.mdp)){
-            JLabel info_connexion = new JLabel("Conneceter en tant qu'Admin");
+        if(baseUser.verifyAdmin(this.id.getText(),this.mdp.getText())){
+            JLabel info_connexion = new JLabel("Connecté en tant qu'Admin");
+            info_connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
+
+            this.info.removeAll();
             this.info.add(info_connexion);
             System.out.println("admin valide");
         }
         else{
             JLabel info_connexion = new JLabel("Non Admin");
+            info_connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
+
+            this.info.removeAll();
             this.info.add(info_connexion);
             System.out.println("admin non valide");
         }

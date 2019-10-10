@@ -46,6 +46,7 @@ public class ListArticlesController implements ListSelectionListener {
             this.texte_desc.setDisabledTextColor(Color.BLACK);
 
             JButton louer = new JButton("Louer");
+            louer.setFocusPainted(false);
             louer.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 19));
             louer.setBackground(Color.white);
 

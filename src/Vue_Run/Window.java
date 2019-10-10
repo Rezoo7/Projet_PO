@@ -59,9 +59,10 @@ public class Window extends JFrame {
         id.addMouseListener(new FormController(id));
 
         JLabel text_mdp = new JLabel("Mot de Passe : ");      text_mdp.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
-        JTextField mdp = new JTextField("mot de passe ");      mdp.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
+        JPasswordField mdp = new JPasswordField("motdepass ");      mdp.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
         mdp.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         mdp.addMouseListener(new FormController(mdp));
+        mdp.setEchoChar('*');
 
         JPanel infos = new JPanel();
         JButton connexion = new JButton("Connexion (admin)");
