@@ -1,8 +1,15 @@
 package Modele.DB;
 
 import Modele.Article;
+import Modele.Location;
+import Modele.User;
 
+import javax.swing.*;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class BaseLocation {
@@ -74,20 +81,84 @@ public class BaseLocation {
 
     }
 
+    public List<Location> getAllLocations(){
+        String sql = "SELECT * FROM locations;";
 
+        List<Location> liste = new LinkedList<Location>();
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            while(rs.next()){
+
+                int id_user = rs.getInt("id_user");
+                int id_article = rs.getInt("id_article");
+                String date_debut = rs.getString("date_debut");
+                String date_fin = rs.getString("date_fin");
+                int nb_jour = rs.getInt("nombre_jour");
+
+                User user = baseUser.getUserByID(id_user);
+                Article art = baseArticle.selectArticleByID(id_article);
+
+                String Date1= date_debut;
+                Date date1 = Date.valueOf(date_debut);
+
+                String Date2= date_fin;
+                Date date2 = Date.valueOf(date_fin);
+
+                Location loc = new Location(art,user,date1,date2,nb_jour,art.prix_loc_sem());
+                liste.add(loc);
+            }
+
+            return liste;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+
+    }
+
+    public List<Location> getLocationByUserID(String identifiant){
+       BaseLocation loc = new BaseLocation();
+
+       List<Location> liste = loc.getAllLocations();
+       List<Location> listeUser = new LinkedList<Location>();
+
+       for(int i = 0; i <= liste.size()-1;i++){
+
+           if(liste.get(i).getClient().getIdentifiant().equals(identifiant)){
+               listeUser.add(liste.get(i));
+               //System.out.println(liste.get(i).getArticle().getNom() + " " + liste.get(i).getClient().getIdentifiant() );
+
+           }
+
+       }
+
+       return listeUser;
+    }
 
     public static void main(String[] args) {
         BaseLocation loc = new BaseLocation();
 
         Date d1 = new Date(2019-1900,10,10);
         Date d2 = new Date(2019-1900,10,16);
-        try {
-            loc.addLocation(1,0,d1,d2,5);
+        /*try {
+            loc.addLocation(1,3,d1,d2,5);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+*/
         Date test = new Date(1234,12,23);
 
+        List<Location> liste = loc.getAllLocations();
+
+        for(int i = 0; i <= liste.size()-1;i++){
+            System.out.println(liste.get(i).getArticle().getNom() + " - " + liste.get(i).getClient().getIdentifiant() );
+        }
+
+        System.out.println("\n");
+        loc.getLocationByUserID("demo");
     }
 }

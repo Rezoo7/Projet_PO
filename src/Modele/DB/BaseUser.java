@@ -1,5 +1,7 @@
 package Modele.DB;
 
+import Modele.User;
+
 import java.sql.*;
 
 public class BaseUser {
@@ -63,6 +65,26 @@ public class BaseUser {
         return false;
     }
 
+    public User getUserByID(int id){
+        String sql = "SELECT * FROM users WHERE id="+id+";";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            String identifiant = rs.getString("identifiant");
+            String password = rs.getString("password");
+            String adress = rs.getString("adress");
+
+            User user = new User(identifiant,password,adress);
+            return user;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public void addUser(String id , String mdp) throws SQLException {
 
         String insertion = "INSERT INTO users (identifiant, password) VALUES (?,?)";
@@ -120,7 +142,7 @@ public class BaseUser {
             e.printStackTrace();
         }*/
 
-        System.out.println(base.verifyID_User(1));
+        base.getUserByID(1);
 
     }
 }
