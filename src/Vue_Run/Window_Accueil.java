@@ -7,8 +7,10 @@ import Modele.DB.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
-public class Window extends JFrame {
+public class Window_Accueil extends JFrame {
 
     private JList<String> list1;
     private JPanel panel1;
@@ -20,7 +22,7 @@ public class Window extends JFrame {
     private JTextArea desc_texte;
 
 
-    public Window(String nom){
+    public Window_Accueil(String nom){
 
         this.panel1 = new JPanel();
         this.description = new JPanel();
@@ -31,7 +33,7 @@ public class Window extends JFrame {
         this.panel1.setLayout(new GridLayout(2,1) );
         this.description.setLayout(new GridLayout(1,1));
         this.location.setLayout(new BorderLayout());
-        this.formulaire.setLayout(new GridLayout(3,2));
+        this.formulaire.setLayout(new GridLayout(5,2));
 
         DefaultListModel<String> def = new DefaultListModel<String>();
     	this.list1 = new JList<String>(def);
@@ -40,16 +42,39 @@ public class Window extends JFrame {
             def.addElement(base_Art.selectAll().get(base_Art.selectAll().indexOf(item)));
         }
 
-        JLabel text_id = new JLabel("Identifiant : ");      text_id.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
+        /* Champs pour le formulaire ( Connexion et location ) */
+
+        JLabel text_id = new JLabel("Identifiant : ");      text_id.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
         JTextField id = new JTextField("ID de Connexion");      id.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
+        text_id.setHorizontalAlignment(JLabel.CENTER);
+
         id.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         id.addMouseListener(new FormController(id));
 
-        JLabel text_mdp = new JLabel("Mot de Passe : ");      text_mdp.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
+        JLabel text_mdp = new JLabel("Mot de Passe : ");      text_mdp.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
+        text_mdp.setHorizontalAlignment(JLabel.CENTER);
         JPasswordField mdp = new JPasswordField("motdepass ");      mdp.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
         mdp.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         mdp.addMouseListener(new FormController(mdp));
         mdp.setEchoChar('*');
+
+
+        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+
+        JLabel text_datedebut = new JLabel("Date début de Location : ");      text_datedebut.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
+        text_datedebut.setHorizontalAlignment(JLabel.CENTER);
+        JFormattedTextField datedebut = new JFormattedTextField(df);      datedebut.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
+        datedebut.setText("11-10-2019");
+
+        datedebut.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        datedebut.addMouseListener(new FormController(datedebut));
+
+        JLabel text_datefin = new JLabel("Date fin de Location ");      text_datefin.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
+        text_datefin.setHorizontalAlignment(JLabel.CENTER);
+        JTextField datefin = new JFormattedTextField(df);      datefin.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
+        datefin.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        datefin.addMouseListener(new FormController(datefin));
+        datefin.setText("16-10-2019");
 
         JPanel infos = new JPanel();
         JButton connexion = new JButton("Connexion (admin)");
@@ -57,10 +82,10 @@ public class Window extends JFrame {
         connexion.setFocusPainted(false);
         connexion.setContentAreaFilled(true);
 
-        connexion.addActionListener(new ConnexionController(id,mdp,infos));
+        connexion.addActionListener(new ConnexionController(id,mdp,infos,this.panel1));
 
         this.list1.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
-        this.list1.addListSelectionListener(new ListArticlesController(this.panel1,this.description,this.location,this.desc_texte,this.list1,this.base_Art,id,mdp,infos));
+        this.list1.addListSelectionListener(new ListArticlesController(this.panel1,this.description,this.location,this.desc_texte,this.list1,this.base_Art,id,mdp,infos,datedebut,datefin));
         this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
         this.list1.setVisibleRowCount(-1);
         this.list1.setFixedCellHeight(40);
@@ -76,6 +101,10 @@ public class Window extends JFrame {
         this.formulaire.add(id);
         this.formulaire.add(text_mdp);
         this.formulaire.add(mdp);
+        this.formulaire.add(text_datedebut);
+        this.formulaire.add(datedebut);
+        this.formulaire.add(text_datefin);
+        this.formulaire.add(datefin);
         this.formulaire.add(infos);
         this.formulaire.add(connexion);
 
@@ -93,7 +122,7 @@ public class Window extends JFrame {
     };
 
     public static void main(String args[]){
-        Window win  = new Window("Medical Location App");
+        Window_Accueil win  = new Window_Accueil("Medical Location App");
     }
 
 }

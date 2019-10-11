@@ -3,6 +3,10 @@ package Modele.DB;
 import Modele.User;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 public class BaseUser {
 
@@ -102,6 +106,23 @@ public class BaseUser {
         return null;
     }
 
+    public int getIdUserByident(String identifiant){
+        String sql = "SELECT id FROM users WHERE identifiant='"+identifiant+"';";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            if(rs.next()){
+                return rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
     public void addUser(String id , String mdp) throws SQLException {
 
         String insertion = "INSERT INTO users (identifiant, password) VALUES (?,?)";
@@ -142,24 +163,29 @@ public class BaseUser {
         }
     }
 
+
+
+
     public static void main(String[] args) {
         BaseUser base = new BaseUser();
-       /* System.out.println(base.verifyUser("demo","demo"));
 
-        *//*try {
-            base.addUser("test","test");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*//*
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
+        String d1 = "11-10-2019";
+        String d2 = "18-10-2019";
 
         try {
-            base.deleteUser("test","test");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }*/
+            java.util.Date udob = df.parse(d1);
+            long ms = udob.getTime();
+            java.sql.Date dnew = new java.sql.Date(ms);
 
-        base.getUserByID(1);
+            System.out.println(dnew);
+
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 }

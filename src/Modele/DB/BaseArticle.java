@@ -184,27 +184,26 @@ public class BaseArticle {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-            String[] params = new String[17];
+            String[] params = new String[16];
 
             // loop through the result set
             while (rs.next()) {
-               params[0] = ""; //"ID :"+rs.getInt("ID");
-               params[1] = "Nom : "+rs.getString("nom");
-               params[2] = "Référence : "+rs.getString("reference");
-               params[3] = "Marque : "+ rs.getString("marque");
-               params[4] = "Prix Location : "+rs.getInt("prix_location") + "€ /jour";
-               params[5] = "Poids Maximal : "+rs.getDouble("poids_max") + " Kg";
-               params[6] = "Longueur Plateau : "+rs.getDouble("longueur_plat")+" cm";
-               params[7] = "Profondeur Plateau : "+rs.getDouble("profondeur_plat")+" cm";
-               params[8] = "Type : "+rs.getString("type");
-               params[9] = "Hauteur Maximale : "+rs.getDouble("hauteur_max")+" cm";
-               params[10] = "Hauteur Minimale : "+rs.getDouble("hauteur_min") +" cm";
-               params[11] = "Largeur : "+rs.getDouble("largeur")+" cm";
-               params[12] = "Longueur : "+rs.getDouble("longueur")+" cm";
-               params[13] = "Hauteur : "+rs.getDouble("hauteur")+ " cm";
-               params[14] = "Temps Gonflage : "+rs.getDouble("temps_gonflage")+ "s";
-               params[15] = "Capacité Levage : "+rs.getDouble("capacite_levage")+ "Kg";
-               params[16] = "Degré de Pivotage : "+rs.getDouble("degre_pivotage")+"°";
+               params[0] = "Nom : "+rs.getString("nom");
+               params[1] = "Référence : "+rs.getString("reference");
+               params[2] = "Marque : "+ rs.getString("marque");
+               params[3] = "Prix Location : "+rs.getInt("prix_location") + "€ /jour";
+               params[4] = "Poids Maximal : "+rs.getDouble("poids_max") + " Kg";
+               params[5] = "Longueur Plateau : "+rs.getDouble("longueur_plat")+" cm";
+               params[6] = "Profondeur Plateau : "+rs.getDouble("profondeur_plat")+" cm";
+               params[7] = "Type : "+rs.getString("type");
+               params[8] = "Hauteur Maximale : "+rs.getDouble("hauteur_max")+" cm";
+               params[9] = "Hauteur Minimale : "+rs.getDouble("hauteur_min") +" cm";
+               params[10] = "Largeur : "+rs.getDouble("largeur")+" cm";
+               params[11] = "Longueur : "+rs.getDouble("longueur")+" cm";
+               params[12] = "Hauteur : "+rs.getDouble("hauteur")+ " cm";
+               params[13] = "Temps Gonflage : "+rs.getDouble("temps_gonflage")+ "s";
+               params[14] = "Capacité Levage : "+rs.getDouble("capacite_levage")+ "Kg";
+               params[15] = "Degré de Pivotage : "+rs.getDouble("degre_pivotage")+"°";
 
             }
 

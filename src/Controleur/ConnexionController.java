@@ -12,11 +12,13 @@ public class ConnexionController implements ActionListener {
     private JTextField id;
     private JTextField mdp;
     private JPanel info;
+    private JPanel principale;
 
-    public ConnexionController(JTextField id, JTextField mdp, JPanel info){
+    public ConnexionController(JTextField id, JTextField mdp, JPanel info, JPanel prin){
         this.id = id;
         this.mdp = mdp;
         this.info = info;
+        this.principale = prin;
     }
 
     @Override
@@ -40,5 +42,7 @@ public class ConnexionController implements ActionListener {
             this.info.add(info_connexion);
         }
 
+        this.principale.revalidate();
+        this.principale.repaint();
     }
 }
