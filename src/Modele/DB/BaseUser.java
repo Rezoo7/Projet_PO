@@ -58,6 +58,23 @@ public class BaseUser {
 
     }
 
+    public boolean verifyIdent_User(String identifiant){
+
+        String sql = "SELECT id FROM users WHERE identifiant='" + identifiant + "';";
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            return rs.next();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+
+    }
+
     public boolean verifyAdmin(String id , String mdp){
         if(id.equals("demo") && mdp.equals("demo")){
             return true;

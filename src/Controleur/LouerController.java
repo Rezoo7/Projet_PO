@@ -7,13 +7,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ConnexionController implements ActionListener {
+public class LouerController implements ActionListener {
 
     private JTextField id;
     private JTextField mdp;
     private JPanel info;
 
-    public ConnexionController(JTextField id, JTextField mdp, JPanel info){
+    public LouerController(JTextField id, JTextField mdp, JPanel info){
         this.id = id;
         this.mdp = mdp;
         this.info = info;
@@ -23,17 +23,26 @@ public class ConnexionController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         BaseUser baseUser = new BaseUser();
+        System.out.println(id.getText());
+        System.out.println(mdp.getText());
 
-        if(baseUser.verifyAdmin(this.id.getText(),this.mdp.getText())){
-            JLabel info_connexion = new JLabel("Connecté en tant qu'Admin");
+        if(baseUser.verifyUser(this.id.getText(),this.mdp.getText())){
+            JLabel info_connexion = new JLabel("Connecté en tant que User");
             info_connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
 
             this.info.removeAll();
             this.info.add(info_connexion);
-            System.out.println("admin valide");
+        }
+        else if(baseUser.verifyIdent_User(this.id.getText())){
+
+            JLabel info_connexion = new JLabel("Mot de Passe Incorrect");
+            info_connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
+
+            this.info.removeAll();
+            this.info.add(info_connexion);
         }
         else{
-            JLabel info_connexion = new JLabel("Idetifiant ou Mot de pass Admin Incorrect");
+            JLabel info_connexion = new JLabel("Identifiant et Mot de Passe Incorrect");
             info_connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
 
             this.info.removeAll();

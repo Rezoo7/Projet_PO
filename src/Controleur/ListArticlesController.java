@@ -15,14 +15,21 @@ public class ListArticlesController implements ListSelectionListener {
     private JPanel panel;
     private JPanel prin;
     private JPanel loc;
+    private JPanel info;
 
-    public ListArticlesController(JPanel principale,JPanel pan,JPanel loc,JTextArea desc, JList<String> liste, BaseArticle base){
+    private JTextField id;
+    private JTextField mdp;
+
+    public ListArticlesController(JPanel principale,JPanel pan,JPanel loc,JTextArea desc, JList<String> liste, BaseArticle base,JTextField id, JTextField mdp, JPanel info){
         this.texte_desc = desc;
         this.articles = liste;
         this.b = base;
         this.panel = pan;
         this.prin = principale;
         this.loc = loc;
+        this.id = id;
+        this.mdp = mdp;
+        this.info = info;
     }
 
 
@@ -49,6 +56,7 @@ public class ListArticlesController implements ListSelectionListener {
             louer.setFocusPainted(false);
             louer.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 19));
             louer.setBackground(Color.white);
+            louer.addActionListener(new LouerController(this.id,this.mdp,this.info));
 
             this.loc.removeAll();
             this.loc.add(louer,BorderLayout.CENTER);

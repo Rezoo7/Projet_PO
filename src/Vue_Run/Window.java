@@ -15,7 +15,7 @@ public class Window extends JFrame {
     private JPanel description;
     private JPanel location;
     private JPanel formulaire;
-    private BaseArticle b;
+    private BaseArticle base_Art;
 
     private JTextArea desc_texte;
 
@@ -26,32 +26,19 @@ public class Window extends JFrame {
         this.description = new JPanel();
         this.location = new JPanel();
         this.formulaire = new JPanel();
-        this.b = new BaseArticle();
+        this.base_Art = new BaseArticle();
 
         this.panel1.setLayout(new GridLayout(2,1) );
         this.description.setLayout(new GridLayout(1,1));
         this.location.setLayout(new BorderLayout());
         this.formulaire.setLayout(new GridLayout(3,2));
 
-
-
         DefaultListModel<String> def = new DefaultListModel<String>();
     	this.list1 = new JList<String>(def);
 
-        for (String item: b.selectAll()) {
-            def.addElement(b.selectAll().get(b.selectAll().indexOf(item)));
+        for (String item: base_Art.selectAll()) {
+            def.addElement(base_Art.selectAll().get(base_Art.selectAll().indexOf(item)));
         }
-
-        this.list1.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
-        this.list1.addListSelectionListener(new ListArticlesController(this.panel1,this.description,this.location,this.desc_texte,this.list1,b));
-        this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
-        this.list1.setVisibleRowCount(-1);
-        this.list1.setFixedCellHeight(40);
-
-        this.panel1.add(list1);
-        this.panel1.add(this.description);
-        this.panel1.add(this.formulaire);
-        this.panel1.add(this.location);
 
         JLabel text_id = new JLabel("Identifiant : ");      text_id.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
         JTextField id = new JTextField("ID de Connexion");      id.setFont(new Font("Book Antiqua", Font.ITALIC, 13));
@@ -71,6 +58,18 @@ public class Window extends JFrame {
         connexion.setContentAreaFilled(true);
 
         connexion.addActionListener(new ConnexionController(id,mdp,infos));
+
+        this.list1.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
+        this.list1.addListSelectionListener(new ListArticlesController(this.panel1,this.description,this.location,this.desc_texte,this.list1,this.base_Art,id,mdp,infos));
+        this.list1.setLayoutOrientation(JList.VERTICAL_WRAP);
+        this.list1.setVisibleRowCount(-1);
+        this.list1.setFixedCellHeight(40);
+
+        this.panel1.add(list1);
+        this.panel1.add(this.description);
+        this.panel1.add(this.formulaire);
+        this.panel1.add(this.location);
+
 
 
         this.formulaire.add(text_id);
