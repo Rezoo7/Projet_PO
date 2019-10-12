@@ -34,7 +34,7 @@ public class Window_Location extends JFrame {
         this.panel1.setLayout(new BorderLayout());
         this.centre.setLayout(new BorderLayout());
         this.montant.setLayout(new BorderLayout());
-        this.title.setLayout(new GridLayout(1,3));
+        this.title.setLayout(new GridLayout(1,5));
 
         JLabel welcome = new JLabel("Bonjour "+ username.getText() + ", Les Locations : ");
         welcome.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
@@ -54,11 +54,14 @@ public class Window_Location extends JFrame {
         }
 
 
+        JLabel text_my = new JLabel("Mois / Année :");
+        text_my.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 13));
         months.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 13));
         years.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 13));
 
 
         years.addActionListener(new LocationsMonthsListener(this.centre,months,years));
+        months.addActionListener(new LocationsMonthsListener(this.centre,months,years));
 
 
         JLabel earnings = new JLabel("Montant Total : "+this.baseLocation.getEarningsAllTime() + " €");
@@ -70,6 +73,7 @@ public class Window_Location extends JFrame {
 
 
         this.title.add(welcome);
+        this.title.add(text_my);
         this.title.add(months);
         this.title.add(years);
 

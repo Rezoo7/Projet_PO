@@ -15,6 +15,7 @@ public class LocationsMonthsListener implements ActionListener {
    private JList<String> locations;
    private BaseLocation baseLocation = new BaseLocation();
 
+
    public LocationsMonthsListener(JPanel centre,JComboBox list_months,JComboBox list_years){
         this.list_months = list_months;
         this.list_years = list_years;
@@ -25,7 +26,6 @@ public class LocationsMonthsListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        int year = (int) this.list_years.getSelectedItem();
         int month = this.list_months.getSelectedIndex();
 
         if((month == 0) && (this.list_years.getSelectedIndex() == 0)){
@@ -47,8 +47,9 @@ public class LocationsMonthsListener implements ActionListener {
             this.centre.repaint();
             this.centre.revalidate();
 
+
         }
-        else if((month > 0) && (year == 0) ){
+        else if((month > 0) && (this.list_years.getSelectedIndex() == 0) ){
             DefaultListModel<String> def = new DefaultListModel<String>();
             this.locations = new JList<String>(def);
             System.out.println("mois choisi / All années");
@@ -69,13 +70,13 @@ public class LocationsMonthsListener implements ActionListener {
             this.centre.revalidate();
 
         }
-        else if((month == 0) && (year >0)){
+        else if((month == 0) && ((int) this.list_years.getSelectedItem()  >0)){
             System.out.println(this.list_years.getSelectedIndex());
             DefaultListModel<String> def = new DefaultListModel<String>();
             this.locations = new JList<String>(def);
             System.out.println("All mois / année choisi ");
 
-            for (String item: baseLocation.selectAllLocationsByYear(year)) {
+            for (String item: baseLocation.selectAllLocationsByYear((int) this.list_years.getSelectedItem() )) {
                 System.out.println(item);
                 def.addElement(item);
             }
@@ -95,7 +96,7 @@ public class LocationsMonthsListener implements ActionListener {
             this.locations = new JList<String>(def);
             System.out.println("mois choisi / année choisie");
 
-            for (String item: baseLocation.selectLocationsByMonth_Years(month,year)) {
+            for (String item: baseLocation.selectLocationsByMonth_Years(month,(int) this.list_years.getSelectedItem() )) {
                 System.out.println(item);
                 def.addElement(item);
             }
