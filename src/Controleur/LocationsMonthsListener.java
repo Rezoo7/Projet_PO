@@ -26,14 +26,13 @@ public class LocationsMonthsListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        DefaultListModel<String> def = new DefaultListModel<String>();
+        this.locations = new JList<String>(def);
         int month = this.list_months.getSelectedIndex();
 
         if((month == 0) && (this.list_years.getSelectedIndex() == 0)){
-            DefaultListModel<String> def = new DefaultListModel<String>();
-            this.locations = new JList<String>(def);
 
             for (String item: baseLocation.selectAllLocations_string()) {
-                System.out.println(item);
                 def.addElement(item);
             }
 
@@ -50,12 +49,8 @@ public class LocationsMonthsListener implements ActionListener {
 
         }
         else if((month > 0) && (this.list_years.getSelectedIndex() == 0) ){
-            DefaultListModel<String> def = new DefaultListModel<String>();
-            this.locations = new JList<String>(def);
-            System.out.println("mois choisi / All années");
 
             for (String item: baseLocation.selectAllLocationsByMonth(this.list_months.getSelectedIndex())) {
-                System.out.println(item);
                 def.addElement(item);
             }
 
@@ -71,10 +66,6 @@ public class LocationsMonthsListener implements ActionListener {
 
         }
         else if((month == 0) && ((int) this.list_years.getSelectedItem()  >0)){
-            System.out.println(this.list_years.getSelectedIndex());
-            DefaultListModel<String> def = new DefaultListModel<String>();
-            this.locations = new JList<String>(def);
-            System.out.println("All mois / année choisi ");
 
             for (String item: baseLocation.selectAllLocationsByYear((int) this.list_years.getSelectedItem() )) {
                 System.out.println(item);
@@ -92,12 +83,8 @@ public class LocationsMonthsListener implements ActionListener {
             this.centre.revalidate();
         }
         else{
-            DefaultListModel<String> def = new DefaultListModel<String>();
-            this.locations = new JList<String>(def);
-            System.out.println("mois choisi / année choisie");
 
             for (String item: baseLocation.selectLocationsByMonth_Years(month,(int) this.list_years.getSelectedItem() )) {
-                System.out.println(item);
                 def.addElement(item);
             }
 

@@ -33,7 +33,7 @@ public class Window_Location extends JFrame {
 
         this.panel1.setLayout(new BorderLayout());
         this.centre.setLayout(new BorderLayout());
-        this.montant.setLayout(new BorderLayout());
+        this.montant.setLayout(new GridLayout(1,2));
         this.title.setLayout(new GridLayout(1,5));
 
         JLabel welcome = new JLabel("Bonjour "+ username.getText() + ", Les Locations : ");
@@ -68,7 +68,14 @@ public class Window_Location extends JFrame {
         earnings.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
         earnings.setHorizontalAlignment(JLabel.CENTER);
 
-        this.montant.add(earnings,BorderLayout.CENTER);
+
+        JButton save = new JButton("Sauvegarder");
+        save.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
+        save.setFocusPainted(false);
+        save.setBackground(Color.white);
+
+        this.montant.add(earnings);
+        this.montant.add(save);
         //this.centre.add(this.locations,BorderLayout.CENTER);
 
 

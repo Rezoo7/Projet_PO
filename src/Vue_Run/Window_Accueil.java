@@ -77,9 +77,11 @@ public class Window_Accueil extends JFrame {
 
         JPanel infos = new JPanel();
         JButton connexion = new JButton("Connexion (admin)");
-        connexion.setBorderPainted(false);
+        connexion.setBorderPainted(true);
         connexion.setFocusPainted(false);
         connexion.setContentAreaFilled(true);
+        connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
+        connexion.setBackground(Color.white);
 
         connexion.addActionListener(new ConnexionController(id,mdp,infos,this.panel1));
 
