@@ -39,6 +39,15 @@ public class BaseLocation {
         return conn;
     }
 
+    /**
+     * Ajout d'une location à la base de donnée
+     * @param id_user
+     * @param id_article
+     * @param date_debut
+     * @param date_fin
+     * @param nb_jour
+     * @throws SQLException
+     */
     public void addLocation(int id_user , int id_article, Date date_debut, Date date_fin, int nb_jour) throws SQLException {
 
         Article art = baseArticle.getArticleByID(id_article);
@@ -82,6 +91,34 @@ public class BaseLocation {
 
     }
 
+    /**
+     * @return double Montant gagné total
+     */
+    public double getEarningsAllTime(){
+        String sql = "SELECT  montant_total FROM locations;";
+
+        double montant = 0.0;
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            while (rs.next()) {
+                montant = montant + rs.getDouble("montant_total");
+            }
+
+            return montant;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @return Toutes locations en string
+     */
     public ArrayList<String> selectAllLocations_string(){
         String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations;";
 
@@ -120,29 +157,12 @@ public class BaseLocation {
 
     }
 
-    public double getEarningsAllTime(){
-        String sql = "SELECT  montant_total FROM locations;";
-
-        double montant = 0.0;
-
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-
-            while (rs.next()) {
-               montant = montant + rs.getDouble("montant_total");
-            }
-
-            return montant;
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
-
+    /**
+     *
+     * @return Toutes location Object Location
+     */
     public LinkedList<Location> selectAllLocations_object() {
-        String sql = "SELECT * FROM locations;";
+        String sql = "SELECT * FROM locations ORDER BY id_user,id_article;";
         LinkedList<Location> liste = new LinkedList<Location>();
 
         try (Connection conn = this.connect();
@@ -180,6 +200,163 @@ public class BaseLocation {
         return null;
     }
 
+    /**
+     *
+     * @param month : Start Location Month
+     * @param year : Start Year Location
+     * @return Locations selon le mois et l'année
+     */
+    public ArrayList<String> selectLocationsByMonth_Years(int month, int year){
+
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article;";
+
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            while (rs.next()) {
+                String dat_deb = rs.getString("date_debut");
+                String[] m = dat_deb.split("-"); //m[1] permet de récupérer le mois (ex 209-(11)-16)
+
+
+                int mth = Integer.parseInt(m[1]);
+                int yrs = Integer.parseInt(m[0]);
+
+                if((mth == month) && (yrs == year)){
+
+                    String location = "Client : " + baseUser.getUserByID(rs.getInt("id_user")).getIdentifiant() + "  -  " +
+                            "Article  : " + baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+
+                    String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+
+                    if ((type != null && !type.isEmpty())) {
+                        location = location + " -  Type : " + baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                    }
+
+                    location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
+                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            "  -  Montant: " + rs.getDouble("montant_total") + " €";
+
+                    liste.add(location);
+                }
+            }
+
+            return liste;
+
+        } catch (SQLException  e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * @param year : Start Year Location
+     * @return Locations selon le mois et l'année
+     */
+    public ArrayList<String> selectAllLocationsByYear(int year){
+
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article;";
+
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            while (rs.next()) {
+                String dat_deb = rs.getString("date_debut");
+                String[] m = dat_deb.split("-"); //m[0] permet de récupérer l'année (ex 209-(11)-16)
+
+                int yrs = Integer.parseInt(m[0]);
+
+                if( yrs == year){
+
+                    String location = "Client : " + baseUser.getUserByID(rs.getInt("id_user")).getIdentifiant() + "  -  " +
+                            "Article  : " + baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+
+                    String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+
+                    if ((type != null && !type.isEmpty())) {
+                        location = location + " -  Type : " + baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                    }
+
+                    location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
+                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            "  -  Montant: " + rs.getDouble("montant_total") + " €";
+
+                    liste.add(location);
+                }
+            }
+
+            return liste;
+
+        } catch (SQLException  e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    /**
+     * @param month : Start Year Location
+     * @return Locations selon le mois et l'année
+     */
+    public ArrayList<String> selectAllLocationsByMonth(int month){
+
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article;";
+
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            while (rs.next()) {
+                String dat_deb = rs.getString("date_debut");
+                String[] m = dat_deb.split("-"); //m[0] permet de récupérer l'année (ex 209-(11)-16)
+
+                int mth = Integer.parseInt(m[1]);
+
+                if( mth == month){
+
+                    String location = "Client : " + baseUser.getUserByID(rs.getInt("id_user")).getIdentifiant() + "  -  " +
+                            "Article  : " + baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+
+                    String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+
+                    if ((type != null && !type.isEmpty())) {
+                        location = location + " -  Type : " + baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                    }
+
+                    location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
+                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            "  -  Montant: " + rs.getDouble("montant_total") + " €";
+
+                    liste.add(location);
+                }
+            }
+
+            return liste;
+
+        } catch (SQLException  e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
     public List<Location> getLocationByUserID(String identifiant){
        BaseLocation loc = new BaseLocation();
 
@@ -211,13 +388,13 @@ public class BaseLocation {
 */
         Date test = new Date(1234,12,23);
 
-       /* int i = 0;
-        for (String location : loc.selectAllLocations_string()) {
+        int i = 0;
+        for (String location : loc.selectAllLocationsByYear(2019)) {
             System.out.println(i +" " + location);
             i++;
-        }*/
+        }
 
-        System.out.println(loc.getEarningsAllTime());
+
 
     }
 }

@@ -1,5 +1,6 @@
 package Vue_Run;
 
+import Controleur.LocationsMonthsListener;
 import Modele.DB.BaseArticle;
 import Modele.DB.BaseLocation;
 import Modele.Location;
@@ -15,8 +16,6 @@ public class Window_Location extends JFrame {
     private JPanel centre;
     private JPanel montant;
 
-
-    private JList<String> locations;
     private JTextField name;
 
     private BaseLocation baseLocation = new BaseLocation();
@@ -35,34 +34,45 @@ public class Window_Location extends JFrame {
         this.panel1.setLayout(new BorderLayout());
         this.centre.setLayout(new BorderLayout());
         this.montant.setLayout(new BorderLayout());
+        this.title.setLayout(new GridLayout(1,3));
 
         JLabel welcome = new JLabel("Bonjour "+ username.getText() + ", Les Locations : ");
         welcome.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
         welcome.setHorizontalAlignment(JLabel.CENTER);
 
+        JComboBox months = new JComboBox();
+        JComboBox years = new JComboBox();
 
-        DefaultListModel<String> def = new DefaultListModel<String>();
-        this.locations = new JList<String>(def);
-
-        for (String item: baseLocation.selectAllLocations_string()) {
-            System.out.println(item);
-            def.addElement(item);
+        months.addItem("Tous");
+        years.addItem("Toutes");
+        for(int i = 1; i <= 12;i++){
+            months.addItem(i);
         }
 
-        this.locations.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 10));
-        this.locations.setLayoutOrientation(JList.VERTICAL_WRAP);
-        this.locations.setVisibleRowCount(-1);
-        this.locations.setFixedCellHeight(30);
+        for(int i = 2015; i<= 2030;i++){
+            years.addItem(i);
+        }
+
+
+        months.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 13));
+        years.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 13));
+
+
+        years.addActionListener(new LocationsMonthsListener(this.centre,months,years));
+
 
         JLabel earnings = new JLabel("Montant Total : "+this.baseLocation.getEarningsAllTime() + " €");
         earnings.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
         earnings.setHorizontalAlignment(JLabel.CENTER);
 
         this.montant.add(earnings,BorderLayout.CENTER);
-        this.centre.add(this.locations,BorderLayout.CENTER);
+        //this.centre.add(this.locations,BorderLayout.CENTER);
 
 
         this.title.add(welcome);
+        this.title.add(months);
+        this.title.add(years);
+
         this.panel1.add(this.title, BorderLayout.NORTH);
         this.panel1.add(this.centre,BorderLayout.CENTER);
         this.panel1.add(this.montant,BorderLayout.SOUTH);
