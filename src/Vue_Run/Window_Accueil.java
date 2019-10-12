@@ -17,18 +17,17 @@ public class Window_Accueil extends JFrame {
     private JPanel description;
     private JPanel location;
     private JPanel formulaire;
-    private BaseArticle base_Art;
+    private BaseArticle base_Art = new BaseArticle();
 
     private JTextArea desc_texte;
 
 
     public Window_Accueil(String nom){
-
         this.panel1 = new JPanel();
         this.description = new JPanel();
         this.location = new JPanel();
         this.formulaire = new JPanel();
-        this.base_Art = new BaseArticle();
+
 
         this.panel1.setLayout(new GridLayout(2,1) );
         this.description.setLayout(new GridLayout(1,1));
@@ -38,8 +37,8 @@ public class Window_Accueil extends JFrame {
         DefaultListModel<String> def = new DefaultListModel<String>();
     	this.list1 = new JList<String>(def);
 
-        for (String item: base_Art.selectAll()) {
-            def.addElement(base_Art.selectAll().get(base_Art.selectAll().indexOf(item)));
+        for (String item: base_Art.selectAllArticles()) {
+            def.addElement(base_Art.selectAllArticles().get(base_Art.selectAllArticles().indexOf(item)));
         }
 
         /* Champs pour le formulaire ( Connexion et location ) */

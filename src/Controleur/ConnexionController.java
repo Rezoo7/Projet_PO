@@ -1,6 +1,7 @@
 package Controleur;
 
 import Modele.DB.BaseUser;
+import Vue_Run.Window_Location;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,6 +34,8 @@ public class ConnexionController implements ActionListener {
             this.info.removeAll();
             this.info.add(info_connexion);
             System.out.println("admin valide");
+
+            Window_Location window = new Window_Location("Locations",this.id);
         }
         else{
             JLabel info_connexion = new JLabel("Idetifiant ou Mot de pass Admin Incorrect");

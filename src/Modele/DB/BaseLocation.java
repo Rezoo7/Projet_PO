@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class BaseLocation {
 
     public void addLocation(int id_user , int id_article, Date date_debut, Date date_fin, int nb_jour) throws SQLException {
 
-        Article art = baseArticle.selectArticleByID(id_article);
+        Article art = baseArticle.getArticleByID(id_article);
         double prix_loc_jrs = art.prix_loc_jrs(nb_jour);
 
         String insertion = "INSERT INTO locations (id_user, id_article,date_debut,date_fin,nombre_jour,montant_total) VALUES (?,?,?,?,?,?)";
@@ -81,34 +82,33 @@ public class BaseLocation {
 
     }
 
-    public List<Location> getAllLocations(){
-        String sql = "SELECT * FROM locations;";
+    public ArrayList<String> selectAllLocations_string(){
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations;";
 
-        List<Location> liste = new LinkedList<Location>();
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
 
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-            while(rs.next()){
+            while (rs.next()) {
+                String location = "Client : "+ baseUser.getUserByID(rs.getInt("id_user")).getIdentifiant() + "  -  " +
+                        "Article  : "+ baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
 
-                int id_user = rs.getInt("id_user");
-                int id_article = rs.getInt("id_article");
-                String date_debut = rs.getString("date_debut");
-                String date_fin = rs.getString("date_fin");
-                int nb_jour = rs.getInt("nombre_jour");
+                String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
 
-                User user = baseUser.getUserByID(id_user);
-                Article art = baseArticle.selectArticleByID(id_article);
+                if((type != null && !type.isEmpty())){
+                    location = location + " -  Type : "+ baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                }
 
-                String Date1= date_debut;
-                Date date1 = Date.valueOf(date_debut);
+                location = location + "  -  Date de Location : du "+ rs.getString("date_debut") + "  au  "+
+                        rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                        "  -  Montant: "+ rs.getDouble("montant_total") +" €" ;
 
-                String Date2= date_fin;
-                Date date2 = Date.valueOf(date_fin);
-
-                Location loc = new Location(art,user,date1,date2,nb_jour,art.prix_loc_sem());
-                liste.add(loc);
+                liste.add(location);
             }
 
             return liste;
@@ -120,10 +120,70 @@ public class BaseLocation {
 
     }
 
+    public double getEarningsAllTime(){
+        String sql = "SELECT  montant_total FROM locations;";
+
+        double montant = 0.0;
+
+        try (Connection conn = this.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            while (rs.next()) {
+               montant = montant + rs.getDouble("montant_total");
+            }
+
+            return montant;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public LinkedList<Location> selectAllLocations_object() {
+        String sql = "SELECT * FROM locations;";
+        LinkedList<Location> liste = new LinkedList<Location>();
+
+        try (Connection conn = this.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                Article art = baseArticle.getArticleByID(rs.getInt("id_article"));
+                User user = baseUser.getUserByID(rs.getInt("id_user"));
+
+                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+                java.util.Date det1 = df.parse(rs.getString("date_debut"));
+                java.util.Date det2 = df.parse(rs.getString("date_fin"));
+
+                long ms1 = det1.getTime();
+                long ms2 = det2.getTime();
+
+                java.sql.Date date_deb = new java.sql.Date(ms1);
+                java.sql.Date date_fin = new java.sql.Date(ms2);
+
+                int nb_jour = rs.getInt("nombre_jour");
+
+                Location loc = new Location(art, user, date_deb, date_fin, nb_jour, art.prix_loc_jrs(nb_jour));
+
+                liste.add(loc);
+
+            }
+            return liste;
+
+        } catch (SQLException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public List<Location> getLocationByUserID(String identifiant){
        BaseLocation loc = new BaseLocation();
 
-       List<Location> liste = loc.getAllLocations();
+       List<Location> liste = loc.selectAllLocations_object();
        List<Location> listeUser = new LinkedList<Location>();
 
        for(int i = 0; i <= liste.size()-1;i++){
@@ -133,7 +193,6 @@ public class BaseLocation {
                //System.out.println(liste.get(i).getArticle().getNom() + " " + liste.get(i).getClient().getIdentifiant() );
 
            }
-
        }
 
        return listeUser;
@@ -152,13 +211,13 @@ public class BaseLocation {
 */
         Date test = new Date(1234,12,23);
 
-        List<Location> liste = loc.getAllLocations();
+       /* int i = 0;
+        for (String location : loc.selectAllLocations_string()) {
+            System.out.println(i +" " + location);
+            i++;
+        }*/
 
-        for(int i = 0; i <= liste.size()-1;i++){
-            System.out.println(liste.get(i).getArticle().getNom() + " - " + liste.get(i).getClient().getIdentifiant() );
-        }
+        System.out.println(loc.getEarningsAllTime());
 
-        System.out.println("\n");
-        loc.getLocationByUserID("demo");
     }
 }

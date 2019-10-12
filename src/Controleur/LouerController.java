@@ -42,9 +42,6 @@ public class LouerController implements ActionListener {
         this.liste_art = articles;
         this.datedebut =datedebut;
         this.datefin = datefin;
-
-
-
     }
 
     @Override
@@ -81,8 +78,6 @@ public class LouerController implements ActionListener {
                 info_connexion.setHorizontalAlignment(JLabel.CENTER);
                 this.info.removeAll();
                 this.info.add(info_connexion);
-
-                Window_Location window = new Window_Location("Locations",this.liste_art,this.id);
 
             }
             else if(this.base_user.verifyIdent_User(this.id.getText())){

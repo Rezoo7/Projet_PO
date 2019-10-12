@@ -28,7 +28,7 @@ public class BaseArticle {
     /**
      * Select All the datas with id, name and reference
      */
-    public ArrayList<String> selectAll(){
+    public ArrayList<String> selectAllArticles(){
         String sql = "SELECT id, nom, reference, prix_location FROM articles;";
 
         ArrayList<String> liste = new ArrayList<String>();
@@ -52,7 +52,7 @@ public class BaseArticle {
 
     }
 
-    public Article selectArticleByID(int id) {
+    public Article getArticleByID(int id) {
         String sql = "SELECT * FROM articles WHERE id="+id+";";
 
         try (Connection conn = this.connect();
@@ -132,28 +132,6 @@ public class BaseArticle {
             System.out.println(e.getMessage());
         }
         return "error";
-    }
-
-    public int selectArticlePrice(int id){
-        String sql = "SELECT id, nom, reference, prix_location FROM articles WHERE id = '"+ id + "';";
-
-        try (Connection conn = this.connect();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-
-            // loop through the result set
-            while (rs.next()) {
-                System.out.println("Le prix est de  : " + rs.getInt("prix_location") +
-                        "€  Soit "+ rs.getInt("prix_location")*7 + "€ /Semaine");
-
-                return rs.getInt("prix_location");
-            }
-
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return 0;
     }
 
     public Number selectArticleOption(String ref, String option){
@@ -254,7 +232,7 @@ public class BaseArticle {
             }
         }*/
 
-        System.out.println(app.selectArticleByID(1));
+        System.out.println(app.getArticleByID(1));
     }
 }
 
