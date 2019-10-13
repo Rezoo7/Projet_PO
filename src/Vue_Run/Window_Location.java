@@ -1,12 +1,10 @@
 package Vue_Run;
 
-import Controleur.LocationsMonthsListener;
+import Controleur.LocationsSelectedListener;
 import Modele.DB.BaseArticle;
 import Modele.DB.BaseLocation;
-import Modele.Location;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class Window_Location extends JFrame {
@@ -33,12 +31,14 @@ public class Window_Location extends JFrame {
 
         this.panel1.setLayout(new BorderLayout());
         this.centre.setLayout(new BorderLayout());
-        this.montant.setLayout(new GridLayout(1,2));
+        this.montant.setLayout(new GridLayout(1,3));
         this.title.setLayout(new GridLayout(1,5));
 
         JLabel welcome = new JLabel("Bonjour "+ username.getText() + ", Les Locations : ");
         welcome.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
         welcome.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel infos = new JLabel();
 
         JComboBox months = new JComboBox();
         JComboBox years = new JComboBox();
@@ -59,9 +59,13 @@ public class Window_Location extends JFrame {
         months.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 13));
         years.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 13));
 
+        JButton save = new JButton("Sauvegarder");
+        save.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
+        save.setFocusPainted(false);
+        save.setBackground(Color.white);
 
-        years.addActionListener(new LocationsMonthsListener(this.centre,months,years));
-        months.addActionListener(new LocationsMonthsListener(this.centre,months,years));
+        years.addActionListener(new LocationsSelectedListener(this.centre,months,years,save,infos));
+        months.addActionListener(new LocationsSelectedListener(this.centre,months,years,save,infos));
 
 
         JLabel earnings = new JLabel("Montant Total : "+this.baseLocation.getEarningsAllTime() + " €");
@@ -69,12 +73,11 @@ public class Window_Location extends JFrame {
         earnings.setHorizontalAlignment(JLabel.CENTER);
 
 
-        JButton save = new JButton("Sauvegarder");
-        save.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
-        save.setFocusPainted(false);
-        save.setBackground(Color.white);
+
+
 
         this.montant.add(earnings);
+        this.montant.add(infos);
         this.montant.add(save);
         //this.centre.add(this.locations,BorderLayout.CENTER);
 
