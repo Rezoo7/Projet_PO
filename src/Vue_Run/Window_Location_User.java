@@ -1,7 +1,6 @@
 package Vue_Run;
 
-import Controleur.LocationsSelectedListener;
-import Controleur.LocationsSelectedListener_User;
+import Controleur.LocationsSelectedController_User;
 import Modele.DB.BaseArticle;
 import Modele.DB.BaseLocation;
 
@@ -62,8 +61,8 @@ public class Window_Location_User extends JFrame {
 
 
 
-        years.addActionListener(new LocationsSelectedListener_User(this.centre,months,years,username.getText(),infos));
-        months.addActionListener(new LocationsSelectedListener_User(this.centre,months,years,username.getText(),infos));
+        years.addActionListener(new LocationsSelectedController_User(this.centre,months,years,username.getText(),infos));
+        months.addActionListener(new LocationsSelectedController_User(this.centre,months,years,username.getText(),infos));
 
 
 

@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+
 public class BaseLocation {
 
     private BaseUser baseUser;
@@ -120,7 +121,7 @@ public class BaseLocation {
      * @return Toutes locations ADMIN en string
      */
     public ArrayList<String> selectAllLocations_string(){
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -162,7 +163,7 @@ public class BaseLocation {
      * @return Toutes locations en string
      */
     public ArrayList<String> selectAllLocations_string_User(int id_user){
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?);";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -175,8 +176,7 @@ public class BaseLocation {
              ResultSet rs    = prep.executeQuery();
 
             while (rs.next()) {
-                String location = "Client : "+ baseUser.getUserByID(rs.getInt("id_user")).getIdentifiant() + "  -  " +
-                        "Article  : "+ baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+                String location ="Article  : "+ baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
 
                 String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
 
@@ -205,7 +205,7 @@ public class BaseLocation {
      * @return Toutes location Object Location
      */
     public LinkedList<Location> selectAllLocations_object() {
-        String sql = "SELECT * FROM locations ORDER BY id_user,id_article;";
+        String sql = "SELECT * FROM locations ORDER BY id_user,id_article,date_debut DESC;";
         LinkedList<Location> liste = new LinkedList<Location>();
 
         try (Connection conn = this.connect();
@@ -251,7 +251,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectLocationsByMonth_Years(int month, int year){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -312,7 +312,7 @@ public class BaseLocation {
 
         ArrayList<String> liste = new ArrayList<String>();
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
         try {
              PreparedStatement prep = this.connect().prepareStatement(sql);
              prep.setInt(1,id_user);
@@ -358,7 +358,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectAllLocationsByYear(int year){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -405,11 +405,11 @@ public class BaseLocation {
 
     /**
      * @param year : Start Year Location
-     * @return Locations selon le mois et l'année ADMIN
+     * @return Locations selon le mois et l'année USER
      */
     public ArrayList<String> selectAllLocationsByYear_User(int id_user ,int year){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -460,7 +460,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectAllLocationsByMonth(int month){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -507,11 +507,11 @@ public class BaseLocation {
 
     /**
      * @param month : Start Year Location
-     * @return Locations selon le mois et l'année ADMIN
+     * @return Locations selon le mois et l'année USER
      */
     public ArrayList<String> selectAllLocationsByMonth_User(int id_user,int month){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -591,7 +591,7 @@ public class BaseLocation {
             i++;
         }
 
-
+        Faker faker = new Faker()
 
     }
 }

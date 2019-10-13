@@ -1,6 +1,6 @@
 package Vue_Run;
 
-import Controleur.LocationsSelectedListener;
+import Controleur.LocationsSelectedController_Admin;
 import Modele.DB.BaseArticle;
 import Modele.DB.BaseLocation;
 
@@ -64,8 +64,8 @@ public class Window_Location_Admin extends JFrame {
         save.setFocusPainted(false);
         save.setBackground(Color.white);
 
-        years.addActionListener(new LocationsSelectedListener(this.centre,months,years,save,infos));
-        months.addActionListener(new LocationsSelectedListener(this.centre,months,years,save,infos));
+        years.addActionListener(new LocationsSelectedController_Admin(this.centre,months,years,save,infos));
+        months.addActionListener(new LocationsSelectedController_Admin(this.centre,months,years,save,infos));
 
 
         JLabel earnings = new JLabel("Montant Total : "+this.baseLocation.getEarningsAllTime() + " €");

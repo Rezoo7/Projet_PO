@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -68,7 +69,7 @@ public class LouerController implements ActionListener {
 
             if(this.base_user.verifyUser(this.id.getText(),this.mdp.getText())){
 
-                //this.base_location.addLocation(this.base_user.getIdUserByident(this.id.getText()),this.liste_art.getSelectedIndex(),date_deb,date_fin,nb_jours);
+                this.base_location.addLocation(this.base_user.getIdUserByident(this.id.getText()),this.liste_art.getSelectedIndex(),date_deb,date_fin,nb_jours);
 
                 JLabel info_connexion = new JLabel("<html> Connecté <br> La Location a bien été ajoutée ! </html>");
                 info_connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 14));
@@ -100,7 +101,7 @@ public class LouerController implements ActionListener {
 
 
 
-        } catch (ParseException ex) {
+        } catch (ParseException | SQLException ex) {
             ex.printStackTrace();
         } /*catch (SQLException ex) {
             ex.printStackTrace();
