@@ -117,7 +117,7 @@ public class BaseLocation {
 
     /**
      *
-     * @return Toutes locations en string
+     * @return Toutes locations ADMIN en string
      */
     public ArrayList<String> selectAllLocations_string(){
         String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations;";
@@ -130,6 +130,49 @@ public class BaseLocation {
         try (Connection conn = this.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
+
+            while (rs.next()) {
+                String location = "Client : "+ baseUser.getUserByID(rs.getInt("id_user")).getIdentifiant() + "  -  " +
+                        "Article  : "+ baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+
+                String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+
+                if((type != null && !type.isEmpty())){
+                    location = location + " -  Type : "+ baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                }
+
+                location = location + "  -  Date de Location : du "+ rs.getString("date_debut") + "  au  "+
+                        rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                        "  -  Montant: "+ rs.getDouble("montant_total") +" €" ;
+
+                liste.add(location);
+            }
+
+            return liste;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+
+    }
+
+    /**
+     *
+     * @return Toutes locations en string
+     */
+    public ArrayList<String> selectAllLocations_string_User(int id_user){
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?);";
+
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
+
+        try{
+             PreparedStatement prep  = this.connect().prepareStatement(sql);
+             prep.setInt(1,id_user);
+             ResultSet rs    = prep.executeQuery();
 
             while (rs.next()) {
                 String location = "Client : "+ baseUser.getUserByID(rs.getInt("id_user")).getIdentifiant() + "  -  " +
@@ -204,7 +247,7 @@ public class BaseLocation {
      *
      * @param month : Start Location Month
      * @param year : Start Year Location
-     * @return Locations selon le mois et l'année
+     * @return Locations selon le mois et l'année ADMIN
      */
     public ArrayList<String> selectLocationsByMonth_Years(int month, int year){
 
@@ -256,8 +299,62 @@ public class BaseLocation {
     }
 
     /**
+     *
+     * @param month : Start Location Month
      * @param year : Start Year Location
-     * @return Locations selon le mois et l'année
+     * @param id_user
+     * @return Locations selon le mois et l'année USER
+     */
+    public ArrayList<String> selectLocationsByMonth_Years_User(int id_user,int month, int year){
+
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
+
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article;";
+        try {
+             PreparedStatement prep = this.connect().prepareStatement(sql);
+             prep.setInt(1,id_user);
+             ResultSet rs = prep.executeQuery();
+
+            while (rs.next()) {
+                String dat_deb = rs.getString("date_debut");
+                String[] m = dat_deb.split("-"); //m[1] permet de récupérer le mois (ex 209-(11)-16)
+
+
+                int mth = Integer.parseInt(m[1]);
+                int yrs = Integer.parseInt(m[0]);
+
+                if((mth == month) && (yrs == year)){
+
+                    String location = "Article  : " + baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+
+                    String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+
+                    if ((type != null && !type.isEmpty())) {
+                        location = location + " -  Type : " + baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                    }
+
+                    location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
+                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            "  -  Montant: " + rs.getDouble("montant_total") + " €";
+
+                    liste.add(location);
+                }
+            }
+            return liste;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * @param year : Start Year Location
+     * @return Locations selon le mois et l'année ADMIN
      */
     public ArrayList<String> selectAllLocationsByYear(int year){
 
@@ -307,8 +404,59 @@ public class BaseLocation {
     }
 
     /**
+     * @param year : Start Year Location
+     * @return Locations selon le mois et l'année ADMIN
+     */
+    public ArrayList<String> selectAllLocationsByYear_User(int id_user ,int year){
+
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article;";
+
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
+
+        try{
+             PreparedStatement prep  = this.connect().prepareStatement(sql);
+             prep.setInt(1,id_user);
+             ResultSet rs    = prep.executeQuery();
+
+                while (rs.next()) {
+                    String dat_deb = rs.getString("date_debut");
+                    String[] m = dat_deb.split("-"); //m[0] permet de récupérer l'année (ex 209-(11)-16)
+
+                    int yrs = Integer.parseInt(m[0]);
+
+                    if (yrs == year) {
+
+                        String location = "Article  : " + baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+
+                        String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+
+                        if ((type != null && !type.isEmpty())) {
+                            location = location + " -  Type : " + baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                        }
+
+                        location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
+                                rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                                "  -  Montant: " + rs.getDouble("montant_total") + " €";
+
+                        liste.add(location);
+                    }
+                }
+                return liste;
+
+            }catch (SQLException  e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+
+    /**
      * @param month : Start Year Location
-     * @return Locations selon le mois et l'année
+     * @return Locations selon le mois et l'année ADMIN
      */
     public ArrayList<String> selectAllLocationsByMonth(int month){
 
@@ -357,6 +505,55 @@ public class BaseLocation {
         return null;
     }
 
+    /**
+     * @param month : Start Year Location
+     * @return Locations selon le mois et l'année ADMIN
+     */
+    public ArrayList<String> selectAllLocationsByMonth_User(int id_user,int month){
+
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article;";
+
+        BaseUser baseUser = new BaseUser();
+        BaseArticle baseArticle = new BaseArticle();
+
+        ArrayList<String> liste = new ArrayList<String>();
+
+        try {
+             PreparedStatement prep  = this.connect().prepareStatement(sql);
+             prep.setInt(1,id_user);
+             ResultSet rs = prep.executeQuery();
+
+                while (rs.next()) {
+                    String dat_deb = rs.getString("date_debut");
+                    String[] m = dat_deb.split("-"); //m[0] permet de récupérer l'année (ex 209-(11)-16)
+
+                    int mth = Integer.parseInt(m[1]);
+
+                    if (mth == month) {
+
+                        String location = "Article  : " + baseArticle.getArticleByID(rs.getInt("id_article")).getNom();
+
+                        String type = baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+
+                        if ((type != null && !type.isEmpty())) {
+                            location = location + " -  Type : " + baseArticle.getArticleByID(rs.getInt("id_article")).getModele();
+                        }
+
+                        location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
+                                rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                                "  -  Montant: " + rs.getDouble("montant_total") + " €";
+
+                        liste.add(location);
+                    }
+                }
+                return liste;
+
+            } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     public List<Location> getLocationByUserID(String identifiant){
        BaseLocation loc = new BaseLocation();
 
@@ -389,7 +586,7 @@ public class BaseLocation {
         Date test = new Date(1234,12,23);
 
         int i = 0;
-        for (String location : loc.selectAllLocationsByYear(2019)) {
+        for (String location : loc.selectAllLocations_string_User(1)) {
             System.out.println(i +" " + location);
             i++;
         }

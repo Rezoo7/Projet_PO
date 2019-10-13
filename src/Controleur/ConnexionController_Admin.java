@@ -1,21 +1,21 @@
 package Controleur;
 
 import Modele.DB.BaseUser;
-import Vue_Run.Window_Location;
+import Vue_Run.Window_Location_Admin;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ConnexionController implements ActionListener {
+public class ConnexionController_Admin implements ActionListener {
 
     private JTextField id;
     private JTextField mdp;
     private JPanel info;
     private JPanel principale;
 
-    public ConnexionController(JTextField id, JTextField mdp, JPanel info, JPanel prin){
+    public ConnexionController_Admin(JTextField id, JTextField mdp, JPanel info, JPanel prin){
         this.id = id;
         this.mdp = mdp;
         this.info = info;
@@ -35,7 +35,7 @@ public class ConnexionController implements ActionListener {
             this.info.add(info_connexion);
             System.out.println("admin valide");
 
-            Window_Location window = new Window_Location("Locations",this.id);
+            Window_Location_Admin window = new Window_Location_Admin("Locations",this.id);
         }
         else{
             JLabel info_connexion = new JLabel("Idetifiant ou Mot de pass Admin Incorrect");

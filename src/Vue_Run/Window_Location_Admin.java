@@ -7,7 +7,7 @@ import Modele.DB.BaseLocation;
 import javax.swing.*;
 import java.awt.*;
 
-public class Window_Location extends JFrame {
+public class Window_Location_Admin extends JFrame {
 
     private JPanel panel1;
     private JPanel title;
@@ -20,7 +20,7 @@ public class Window_Location extends JFrame {
     private BaseArticle baseArticle = new BaseArticle();
 
 
-    public Window_Location(String nom,JTextField username){
+    public Window_Location_Admin(String nom, JTextField username){
 
         this.name = username;
 
@@ -71,9 +71,6 @@ public class Window_Location extends JFrame {
         JLabel earnings = new JLabel("Montant Total : "+this.baseLocation.getEarningsAllTime() + " €");
         earnings.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
         earnings.setHorizontalAlignment(JLabel.CENTER);
-
-
-
 
 
         this.montant.add(earnings);
