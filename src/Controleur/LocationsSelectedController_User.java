@@ -51,7 +51,11 @@ public class LocationsSelectedController_User implements ActionListener {
 
 
             this.centre.removeAll();
-            this.centre.add(this.locations,BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane();
+            scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
+            this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
 
@@ -77,7 +81,11 @@ public class LocationsSelectedController_User implements ActionListener {
 
 
             this.centre.removeAll();
-            this.centre.add(this.locations,BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane();
+            scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
+            this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
 
@@ -102,7 +110,11 @@ public class LocationsSelectedController_User implements ActionListener {
 
 
             this.centre.removeAll();
-            this.centre.add(this.locations,BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane();
+            scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
+            this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
         }
@@ -127,10 +139,13 @@ public class LocationsSelectedController_User implements ActionListener {
 
 
             this.centre.removeAll();
-            this.centre.add(this.locations,BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane();
+            scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
+            this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
-
         }
 
     }

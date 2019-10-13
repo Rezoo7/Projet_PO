@@ -31,7 +31,7 @@ public class LocationsSelectedController_Admin implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         DefaultListModel<String> def = new DefaultListModel<String>();
-        JScrollPane scrollPane = new JScrollPane();
+
         this.locations = new JList<String>(def);
 
         int month = this.list_months.getSelectedIndex();
@@ -50,7 +50,11 @@ public class LocationsSelectedController_Admin implements ActionListener {
             this.save.addActionListener(new SaveListener(this.locations,list_years.getSelectedIndex(),this.list_months.getSelectedIndex(),this.infos));
 
             this.centre.removeAll();
+
+            JScrollPane scrollPane = new JScrollPane();
             scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
             this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
@@ -78,7 +82,11 @@ public class LocationsSelectedController_Admin implements ActionListener {
             this.save.addActionListener(new SaveListener(this.locations,list_years.getSelectedIndex(),this.list_months.getSelectedIndex(),this.infos));
 
             this.centre.removeAll();
-            this.centre.add(this.locations,BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane();
+            scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
+            this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
 
@@ -104,7 +112,11 @@ public class LocationsSelectedController_Admin implements ActionListener {
             this.save.addActionListener(new SaveListener(this.locations,(int)list_years.getSelectedItem(),this.list_months.getSelectedIndex(),this.infos));
 
             this.centre.removeAll();
-            this.centre.add(this.locations,BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane();
+            scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
+            this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
         }
@@ -130,7 +142,11 @@ public class LocationsSelectedController_Admin implements ActionListener {
             this.save.addActionListener(new SaveListener(this.locations,(int)list_years.getSelectedItem(),this.list_months.getSelectedIndex(),this.infos));
 
             this.centre.removeAll();
-            this.centre.add(this.locations,BorderLayout.CENTER);
+            JScrollPane scrollPane = new JScrollPane();
+            scrollPane.setViewportView(this.locations);
+            this.locations.setLayoutOrientation(JList.VERTICAL);
+
+            this.centre.add(scrollPane,BorderLayout.CENTER);
             this.centre.repaint();
             this.centre.revalidate();
 

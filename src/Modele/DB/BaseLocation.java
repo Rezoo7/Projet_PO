@@ -3,6 +3,7 @@ package Modele.DB;
 import Modele.Article;
 import Modele.Location;
 import Modele.User;
+import com.github.javafaker.Faker;
 
 import javax.swing.*;
 import java.sql.*;
@@ -13,11 +14,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-
 public class BaseLocation {
 
     private BaseUser baseUser;
     private BaseArticle baseArticle;
+
+    public final static long SECOND_MILLIS = 1000;
+    public final static long MINUTE_MILLIS = SECOND_MILLIS*60;
+    public final static long HOUR_MILLIS = MINUTE_MILLIS*60;
+    public final static long DAY_MILLIS = HOUR_MILLIS*24;
+    public final static long YEAR_MILLIS = DAY_MILLIS*365;
 
     public BaseLocation(){
         this.baseUser = new BaseUser();
@@ -572,7 +578,7 @@ public class BaseLocation {
        return listeUser;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException, SQLException {
         BaseLocation loc = new BaseLocation();
 
         Date d1 = new Date(2019-1900,10,10);
@@ -585,13 +591,48 @@ public class BaseLocation {
 */
         Date test = new Date(1234,12,23);
 
-        int i = 0;
-        for (String location : loc.selectAllLocations_string_User(1)) {
-            System.out.println(i +" " + location);
-            i++;
-        }
+        /*int i = 0;
+            for (String location : loc.selectAllLocations_string_User(1)) {
+                System.out.println(i +" " + location);
+                i++;
+        }*/
 
-        Faker faker = new Faker()
+
+        Faker faker = new Faker();
+
+        for (int j =0 ; j<= 40;j++){
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+            int id_user = faker.number().numberBetween(1,3);
+            int id_article = faker.number().numberBetween(0,6);
+
+            int jourd = faker.number().numberBetween(1,31);
+            int moisd = faker.number().numberBetween(1,12);
+            int anneed = faker.number().numberBetween(2015,2017);
+
+            int jourf = faker.number().numberBetween(1,31);
+            int moisf = faker.number().numberBetween(1,12);
+            int anneef = faker.number().numberBetween(2018,2021);
+
+            String date_deb = jourd+"-"+moisd+"-"+anneed;
+            String date_fin = jourf+"-"+moisf+"-"+anneef;
+
+            java.util.Date date_debut = df.parse(date_deb);
+            java.util.Date date_final = df.parse(date_fin);
+
+            long ms1 = date_debut.getTime();
+            long ms2 = date_final.getTime();
+
+            java.sql.Date date1 = new java.sql.Date(ms1);
+            java.sql.Date date2 = new java.sql.Date(ms2);
+
+
+            int nb_jours = (int)((date2.getTime()/DAY_MILLIS) - (date1.getTime()/DAY_MILLIS));
+            System.out.println(date1 + " --- " + date2 + " --- "+ nb_jours + " --- user:"+ id_user + " --- article: "+ id_article);
+
+            //System.out.println(id_user + " - " + id_article + " - " + date_debut.toString() + " - " + date_fin.toString() + " - " + nb_jours);
+            loc.addLocation(id_user,id_article,date1,date2,nb_jours);
+        }
 
     }
 }
