@@ -1,0 +1,14 @@
+Client : demo  -  Article  : Lit Medical 1 -  Type : standard  -  Date de Location : du 2019-11-10  au  2019-11-16   -   Nombre Jours : 5  -  Montant: 15.0 €
+Client : demo  -  Article  : Matelas a Air   -  Date de Location : du 2019-11-10  au  2019-11-16   -   Nombre Jours : 5  -  Montant: 7.5 €
+Client : demo  -  Article  : Table d'Alite  -  Date de Location : du 2019-11-10  au  2019-11-16   -   Nombre Jours : 5  -  Montant: 17.5 €
+Client : demo  -  Article  : Matelas a Air   -  Date de Location : du 2019-11-10  au  2019-11-16   -   Nombre Jours : 5  -  Montant: 7.5 €
+Client : user1  -  Article  : Matelas a Air   -  Date de Location : du 2019-11-11  au  2019-11-13   -   Nombre Jours : 3  -  Montant: 4.5 €
+Client : demo  -  Article  : Lit Medical 1 -  Type : standard  -  Date de Location : du 2019-10-11  au  2019-10-16   -   Nombre Jours : 5  -  Montant: 15.0 €
+Client : user1  -  Article  : Table d'Alite  -  Date de Location : du 2019-10-14  au  2019-11-21   -   Nombre Jours : 38  -  Montant: 133.0 €
+Client : demo  -  Article  : Matelas a Air   -  Date de Location : du 2019-11-13  au  2019-12-24   -   Nombre Jours : 41  -  Montant: 61.5 €
+Client : user1  -  Article  : Fauteuil Roulant 1  -  Date de Location : du 2019-10-11  au  2019-10-16   -   Nombre Jours : 5  -  Montant: 22.5 €
+Client : user1  -  Article  : Lit Medical 2 -  Type : enfant  -  Date de Location : du 2019-10-12  au  2019-10-14   -   Nombre Jours : 2  -  Montant: 12.0 €
+Client : demo  -  Article  : Table d'Alite  -  Date de Location : du 2019-12-20  au  2020-01-02   -   Nombre Jours : 13  -  Montant: 45.5 €
+Client : user1  -  Article  : Lit Medical 1 -  Type : standard  -  Date de Location : du 2019-12-13  au  2019-12-17   -   Nombre Jours : 4  -  Montant: 12.0 €
+Client : user1  -  Article  : Souleve Malade 1  -  Date de Location : du 2018-06-12  au  2018-08-12   -   Nombre Jours : 61  -  Montant: 244.0 €
+Client : demo  -  Article  : Matelas a Air   -  Date de Location : du 2018-10-15  au  2018-10-25   -   Nombre Jours : 10  -  Montant: 15.0 €
