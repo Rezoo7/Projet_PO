@@ -32,7 +32,7 @@ public class Window_Accueil extends JFrame {
         this.panel1.setLayout(new GridLayout(2,1) );
         this.description.setLayout(new GridLayout(1,1));
         this.location.setLayout(new BorderLayout());
-        this.formulaire.setLayout(new GridLayout(5,2));
+        this.formulaire.setLayout(new GridLayout(6,2));
 
         DefaultListModel<String> def = new DefaultListModel<String>();
     	this.list1 = new JList<String>(def);
@@ -76,14 +76,21 @@ public class Window_Accueil extends JFrame {
         datefin.setText("16-10-2019");
 
         JPanel infos = new JPanel();
-        JButton connexion = new JButton("Connexion (admin)");
-        connexion.setBorderPainted(true);
-        connexion.setFocusPainted(false);
-        connexion.setContentAreaFilled(true);
-        connexion.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
-        connexion.setBackground(Color.white);
+        JButton connexion_admin = new JButton("Connexion Admin");
+        connexion_admin.setBorderPainted(true);
+        connexion_admin.setFocusPainted(false);
+        connexion_admin.setContentAreaFilled(true);
+        connexion_admin.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
+        connexion_admin.setBackground(Color.white);
 
-        connexion.addActionListener(new ConnexionController(id,mdp,infos,this.panel1));
+        JButton connexion_user = new JButton("Connexion Utilisateur");
+        connexion_user.setBorderPainted(true);
+        connexion_user.setFocusPainted(false);
+        connexion_user.setContentAreaFilled(true);
+        connexion_user.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
+        connexion_user.setBackground(Color.white);
+
+        connexion_admin.addActionListener(new ConnexionController(id,mdp,infos,this.panel1));
 
         this.list1.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 12));
         this.list1.addListSelectionListener(new ListArticlesController(this.panel1,this.description,this.location,this.desc_texte,this.list1,this.base_Art,id,mdp,infos,datedebut,datefin));
@@ -96,7 +103,8 @@ public class Window_Accueil extends JFrame {
         this.panel1.add(this.formulaire);
         this.panel1.add(this.location);
 
-
+        JPanel empty = new JPanel();
+        empty.setBackground(Color.white);
 
         this.formulaire.add(text_id);
         this.formulaire.add(id);
@@ -107,7 +115,9 @@ public class Window_Accueil extends JFrame {
         this.formulaire.add(text_datefin);
         this.formulaire.add(datefin);
         this.formulaire.add(infos);
-        this.formulaire.add(connexion);
+        this.formulaire.add(empty);
+        this.formulaire.add(connexion_admin);
+        this.formulaire.add(connexion_user);
 
 
 
