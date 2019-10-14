@@ -124,7 +124,8 @@ public class Window_Accueil extends JFrame {
 
 
 
-
+        Image icone = Toolkit.getDefaultToolkit().getImage("/icone/medecine.png");
+        this.setIconImage(icone);
         this.setContentPane(this.panel1);
         this.setName(nom);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

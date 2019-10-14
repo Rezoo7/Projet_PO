@@ -39,7 +39,7 @@ public class BaseArticle {
 
             while (rs.next()) {
                 liste.add("Nom : "+ rs.getString("nom") + "   -   " +
-                        "Reference : "+rs.getString("reference"));
+                        "Reference : "+rs.getString("reference") + "   -   "+rs.getDouble("prix_location")+"€ /jour");
 
             }
 
@@ -169,7 +169,7 @@ public class BaseArticle {
                params[0] = "Nom : "+rs.getString("nom");
                params[1] = "Référence : "+rs.getString("reference");
                params[2] = "Marque : "+ rs.getString("marque");
-               params[3] = "Prix Location : "+rs.getInt("prix_location") + "€ /jour";
+               params[3] = "Prix Location : "+rs.getDouble("prix_location") + "€ /jour";
                params[4] = "Poids Maximal : "+rs.getDouble("poids_max") + " Kg";
                params[5] = "Longueur Plateau : "+rs.getDouble("longueur_plat")+" cm";
                params[6] = "Profondeur Plateau : "+rs.getDouble("profondeur_plat")+" cm";
