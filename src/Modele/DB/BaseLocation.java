@@ -7,6 +7,8 @@ import com.github.javafaker.Faker;
 
 import javax.swing.*;
 import java.sql.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -114,6 +116,7 @@ public class BaseLocation {
                 montant = montant + rs.getDouble("montant_total");
             }
 
+
             return montant;
 
         } catch (SQLException e) {
@@ -127,7 +130,7 @@ public class BaseLocation {
      * @return Toutes locations ADMIN en string
      */
     public ArrayList<String> selectAllLocations_string(){
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, users.adress,montant_total FROM locations,users ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -150,6 +153,7 @@ public class BaseLocation {
 
                 location = location + "  -  Date de Location : du "+ rs.getString("date_debut") + "  au  "+
                         rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                        "   -   Adresse : " + rs.getString("adress")+
                         "  -  Montant: "+ rs.getDouble("montant_total") +" €" ;
 
                 liste.add(location);
@@ -169,7 +173,7 @@ public class BaseLocation {
      * @return Toutes locations en string
      */
     public ArrayList<String> selectAllLocations_string_User(int id_user){
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour,, users.adress, montant_total FROM locations,users WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -192,6 +196,7 @@ public class BaseLocation {
 
                 location = location + "  -  Date de Location : du "+ rs.getString("date_debut") + "  au  "+
                         rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                        "   -   Adresse : " + rs.getString("adress")+
                         "  -  Montant: "+ rs.getDouble("montant_total") +" €" ;
 
                 liste.add(location);
@@ -257,7 +262,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectLocationsByMonth_Years(int month, int year){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour,users.adress montant_total FROM locations,users ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -288,7 +293,8 @@ public class BaseLocation {
                     }
 
                     location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
-                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour")
+                            +"   -   Adresse : " + rs.getString("adress")+
                             "  -  Montant: " + rs.getDouble("montant_total") + " €";
 
                     liste.add(location);
@@ -318,7 +324,7 @@ public class BaseLocation {
 
         ArrayList<String> liste = new ArrayList<String>();
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, users.adress ,montant_total FROM locations,users WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
         try {
              PreparedStatement prep = this.connect().prepareStatement(sql);
              prep.setInt(1,id_user);
@@ -343,7 +349,8 @@ public class BaseLocation {
                     }
 
                     location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
-                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour")
+                            +"   -   Adresse : " + rs.getString("adress")+
                             "  -  Montant: " + rs.getDouble("montant_total") + " €";
 
                     liste.add(location);
@@ -364,7 +371,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectAllLocationsByYear(int year){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, users.adress,montant_total FROM locations,users ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -394,6 +401,7 @@ public class BaseLocation {
 
                     location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
                             rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            "   -   Adresse : " + rs.getString("adress")+
                             "  -  Montant: " + rs.getDouble("montant_total") + " €";
 
                     liste.add(location);
@@ -415,7 +423,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectAllLocationsByYear_User(int id_user ,int year){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, users.adress,montant_total FROM locations,users WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -445,6 +453,7 @@ public class BaseLocation {
 
                         location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
                                 rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                                "   -   Adresse : " + rs.getString("adress")+
                                 "  -  Montant: " + rs.getDouble("montant_total") + " €";
 
                         liste.add(location);
@@ -466,7 +475,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectAllLocationsByMonth(int month){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, users.adress,montant_total FROM locations,users ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -496,6 +505,7 @@ public class BaseLocation {
 
                     location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
                             rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                            "   -   Adresse : " + rs.getString("adress")+
                             "  -  Montant: " + rs.getDouble("montant_total") + " €";
 
                     liste.add(location);
@@ -517,7 +527,7 @@ public class BaseLocation {
      */
     public ArrayList<String> selectAllLocationsByMonth_User(int id_user,int month){
 
-        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, montant_total FROM locations WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
+        String sql = "SELECT id_user, id_article, date_debut, date_fin, nombre_jour, users.adress,montant_total FROM locations,users WHERE id_user = (?) ORDER BY id_user,id_article,date_debut DESC;";
 
         BaseUser baseUser = new BaseUser();
         BaseArticle baseArticle = new BaseArticle();
@@ -547,6 +557,7 @@ public class BaseLocation {
 
                         location = location + "  -  Date de Location : du " + rs.getString("date_debut") + "  au  " +
                                 rs.getString("date_fin") + "   -   Nombre Jours : " + rs.getInt("nombre_jour") +
+                                "   -   Adresse : " + rs.getString("adress")+
                                 "  -  Montant: " + rs.getDouble("montant_total") + " €";
 
                         liste.add(location);
@@ -592,7 +603,7 @@ public class BaseLocation {
         Date test = new Date(1234,12,23);
 
         /*int i = 0;
-            for (String location : loc.selectAllLocations_string_User(1)) {
+            for (String location : loc.selectAllLocations_string()) {
                 System.out.println(i +" " + location);
                 i++;
         }*/
@@ -600,7 +611,7 @@ public class BaseLocation {
 
         Faker faker = new Faker();
 
-        for (int j =0 ; j<= 40;j++){
+        /*for (int j =0 ; j<= 40;j++){
             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
             int id_user = faker.number().numberBetween(1,3);
@@ -632,7 +643,7 @@ public class BaseLocation {
 
             //System.out.println(id_user + " - " + id_article + " - " + date_debut.toString() + " - " + date_fin.toString() + " - " + nb_jours);
             loc.addLocation(id_user,id_article,date1,date2,nb_jours);
-        }
+        }*/
 
     }
 }

@@ -6,6 +6,8 @@ import Modele.DB.BaseLocation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 public class Window_Location_Admin extends JFrame {
 
@@ -67,8 +69,13 @@ public class Window_Location_Admin extends JFrame {
         years.addActionListener(new LocationsSelectedController_Admin(this.centre,months,years,save,infos));
         months.addActionListener(new LocationsSelectedController_Admin(this.centre,months,years,save,infos));
 
+        DecimalFormat format = new DecimalFormat("000,000" ); // c'est pas necessaire de mettre 3 blocs mais je me rappelle plus la syntaxe exacte
+        DecimalFormatSymbols s = format.getDecimalFormatSymbols();
+        s.setGroupingSeparator('.');
+        format.setDecimalFormatSymbols(s);
+        String mt = format.format(this.baseLocation.getEarningsAllTime());
 
-        JLabel earnings = new JLabel("Montant Total : "+this.baseLocation.getEarningsAllTime() + " €");
+        JLabel earnings = new JLabel("Montant Total : "+ mt+ " €");
         earnings.setFont(new Font("Book Antiqua", Font.LAYOUT_LEFT_TO_RIGHT, 15));
         earnings.setHorizontalAlignment(JLabel.CENTER);
 
